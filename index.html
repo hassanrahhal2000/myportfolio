@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassan Rahhal | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .skill-circle {
+            stroke-dasharray: 251;
+            stroke-dashoffset: 251;
+            transition: stroke-dashoffset 1.5s ease-out;
+        }
+        
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <div class="content-wrapper">
+        <!-- Navigation -->
+        <nav class="fixed w-full bg-white bg-opacity-80 backdrop-blur-sm z-50 shadow-sm">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-2xl font-bold text-slate-800">HR.</a>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#about" class="nav-link text-slate-600 hover:text-slate-900">À propos</a>
+                        <a href="#skills" class="nav-link text-slate-600 hover:text-slate-900">Compétences</a>
+                        <a href="#projects" class="nav-link text-slate-600 hover:text-slate-900">Projets</a>
+                        <a href="#contact" class="nav-link text-slate-600 hover:text-slate-900">Contact</a>
+                    </div>
+                    <button class="md:hidden focus:outline-none">
+                        <i class="fas fa-bars text-slate-600 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center pt-16">
+            <div class="container mx-auto px-6 py-20">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-12 md:mb-0 animate-in">
+                        <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Bonjour, je suis <span class="text-blue-600">Hassan Rahhal</span></h1>
+                        <h2 class="text-2xl md:text-3xl text-slate-600 mb-6">Développeur IA & Designer Web</h2>
+                        <p class="text-slate-600 mb-8 max-w-lg">Je crée des solutions intelligentes et des expériences web exceptionnelles en combinant intelligence artificielle et design moderne.</p>
+                        <div class="flex space-x-4">
+                            <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition shadow-lg">
+                                Voir mes projets
+                            </a>
+                            <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition">
+                                Me contacter
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center animate-in" style="transition-delay: 0.2s">
+                        <div class="relative">
+                            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                              <img src="tt.jpg" alt="Description of image" width="634" height="auto" style="border-radius: 10px;">
+                              alt="Hassan Rahhal" 
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-full shadow-lg">
+                                <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-code text-blue-600 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">À propos de moi</h2>
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-12 md:mb-0 animate-in" style="transition-delay: 0.1s">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-sm max-w-md mx-auto">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">Mon parcours</h3>
+                            <p class="text-slate-600 mb-6">Diplômé en informatique avec une spécialisation en intelligence artificielle, j'ai travaillé pendant 5 ans sur des projets innovants alliant machine learning et développement web.</p>
+                            <p class="text-slate-600">Passionné par la création d'interfaces intuitives et de systèmes intelligents, je mets mon expertise au service de solutions digitales performantes.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 animate-in" style="transition-delay: 0.2s">
+                        <div class="bg-gradient-to-br from-slate-50 to-slate-100 p-8 rounded-xl shadow-sm max-w-md mx-auto">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-4">Ma philosophie</h3>
+                            <p class="text-slate-600 mb-6">Je crois en une approche centrée sur l'utilisateur, où la technologie doit servir l'expérience humaine et non l'inverse.</p>
+                            <p class="text-slate-600">Mon objectif est de créer des solutions qui allient performance technique et design élégant, pour des produits à la fois beaux et intelligents.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 gradient-bg">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Mes compétences</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Skill 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
+                                        class="skill-circle" data-percent="90" style="stroke-dashoffset: 25.1;"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fab fa-python text-3xl text-blue-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Python</h3>
+                        <p class="text-slate-600">Machine Learning, Data Science</p>
+                    </div>
+                    
+                    <!-- Skill 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.1s">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
+                                        class="skill-circle" data-percent="85" style="stroke-dashoffset: 37.65;"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fab fa-js text-3xl text-yellow-400"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">JavaScript</h3>
+                        <p class="text-slate-600">React, Node.js, Vue</p>
+                    </div>
+                    
+                    <!-- Skill 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.2s">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
+                                        class="skill-circle" data-percent="80" style="stroke-dashoffset: 50.2;"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-robot text-3xl text-purple-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Machine Learning</h3>
+                        <p class="text-slate-600">TensorFlow, PyTorch</p>
+                    </div>
+                    
+                    <!-- Skill 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.3s">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
+                                        class="skill-circle" data-percent="75" style="stroke-dashoffset: 62.75;"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-cloud text-3xl text-blue-400"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Cloud</h3>
+                        <p class="text-slate-600">AWS, Azure, GCP</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Mes projets récents</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in">
+                        <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
+                            <i class="fas fa-comments text-white text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Chatbot Intelligent</h3>
+                            <p class="text-slate-600 mb-4">Un chatbot utilisant le NLP pour comprendre et répondre aux requêtes complexes en langage naturel.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">TensorFlow</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">NLP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in" style="transition-delay: 0.1s">
+                        <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center">
+                            <i class="fas fa-code text-white text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Analyseur de Code</h3>
+                            <p class="text-slate-600 mb-4">Outil d'analyse statique de code utilisant le machine learning pour détecter les vulnérabilités.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                                <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">ML</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in" style="transition-delay: 0.2s">
+                        <div class="h-48 bg-gradient-to-r from-green-500 to-green-700 flex items-center justify-center">
+                            <i class="fas fa-paint-brush text-white text-6xl opacity-80"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Assistant Design</h3>
+                            <p class="text-slate-600 mb-4">IA générative qui crée des maquettes UI à partir de descriptions textuelles.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">React</span>
+                                <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">GAN</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 gradient-bg">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Contactez-moi</h2>
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden animate-in">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 bg-blue-600 text-white p-8">
+                            <h3 class="text-xl font-semibold mb-4">Informations de contact</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i class="fas fa-envelope mt-1 mr-4 text-blue-200"></i>
+                                    <div>
+                                        <h4 class="font-medium">Email</h4>
+                                        <p class="text-blue-100">hassan.rahhalrahhal194@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-phone-alt mt-1 mr-4 text-blue-200"></i>
+                                    <div>
+                                        <h4 class="font-medium">Téléphone</h4>
+                                        <p class="text-blue-100">+212659560209</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="fas fa-map-marker-alt mt-1 mr-4 text-blue-200"></i>
+                                    <div>
+                                        <h4 class="font-medium">Adresse</h4>
+                                        <p class="text-blue-100">ouarzazate-morocco</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold mb-4">Réseaux sociaux</h3>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 p-8">
+                            <form class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-slate-700 mb-1">Nom</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-slate-700 mb-1">Email</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-slate-700 mb-1">Message</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition shadow-lg">
+                                    Envoyer le message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-800 text-white py-8">
+            <div class="container mx-auto px-6 text-center">
+                <p>© 2023 Hassan Rahhal. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#3b82f6"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#93c5fd",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Animate skills circles on scroll
+            const animateSkills = () => {
+                document.querySelectorAll('.skill-circle').forEach(circle => {
+                    const percent = circle.getAttribute('data-percent');
+                    const offset = 251 - (251 * percent / 100);
+                    circle.style.strokeDashoffset = offset;
+                });
+            };
+
+            // Scroll animation for sections
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.animate-in');
+                const windowHeight = window.innerHeight;
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('visible');
+                        
+                        if (element.closest('#skills')) {
+                            animateSkills();
+                        }
+                    }
+                });
+            };
+
+            // Initialize animations
+            window.addEventListener('scroll', animateOnScroll);
+            window.addEventListener('load', animateOnScroll);
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
