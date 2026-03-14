@@ -3,91 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hassan Rahhal | Portfolio</title>
+    <title>Hassan Rahhal | Portfolio Professionnel</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    
+    <!-- Google Fonts - Inter & Space Grotesk -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            background: #f9fafc;
             color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Custom gradients */
+        .gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+        .gradient-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
         
-        .card-hover {
-            transition: all 0.3s ease;
+        .gradient-card {
+            background: linear-gradient(145deg, #ffffff, #f5f7ff);
         }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
-        .skill-circle {
-            stroke-dasharray: 251;
-            stroke-dashoffset: 251;
-            transition: stroke-dashoffset 1.5s ease-out;
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
         }
-        
-        .animate-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
-        
-        .animate-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
         }
-        
-        #particles-js {
-            position: absolute;
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* Cards */
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 45px -15px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-tag {
+            background: linear-gradient(145deg, #f0f4ff, #e6ecfe);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            color: #4338ca;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(145deg, #e0e8ff, #d1dcff);
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Progress bar */
+        .progress-bar {
             width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
             height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
         }
-        
-        .content-wrapper {
+
+        /* Timeline */
+        .timeline-item {
             position: relative;
-            z-index: 1;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
         }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
+
+        .timeline-item::before {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
             left: 0;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
-        
-        .nav-link:hover::after {
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1e293b, #4338ca);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero section */
+        .hero-bg {
+            background: radial-gradient(circle at 10% 30%, rgba(102, 126, 234, 0.1) 0%, transparent 30%),
+                        radial-gradient(circle at 90% 70%, rgba(118, 75, 162, 0.1) 0%, transparent 30%);
+        }
+
+        /* Form inputs */
+        .form-input {
             width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-size: 1rem;
         }
 
-        .skill-btn {
-            transition: all 0.3s ease;
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .skill-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Modal Styles */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -95,747 +204,960 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background-color: white;
-            border-radius: 12px;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
             width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
+            max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            animation: modalFadeIn 0.3s ease-out;
+            animation: modalSlideIn 0.3s ease;
         }
 
-        @keyframes modalFadeIn {
+        @keyframes modalSlideIn {
             from {
+                transform: translateY(-50px);
                 opacity: 0;
-                transform: translateY(-20px);
             }
             to {
-                opacity: 1;
                 transform: translateY(0);
+                opacity: 1;
             }
         }
 
-        .modal-header {
-            padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Profile image */
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
-        .modal-body {
-            padding: 20px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #64748b;
-        }
-
-        .close-btn:hover {
-            color: #334155;
-        }
-
-        .skill-detail-item {
-            margin-bottom: 15px;
-        }
-
-        .skill-detail-title {
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 5px;
-        }
-
-        .professional-link {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .project-btn {
-            margin-top: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .project-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Modal Structure -->
-    <div id="skillModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalSkillTitle" class="text-xl font-bold text-slate-800"></h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body" id="modalSkillContent">
-                <!-- Content will be inserted here dynamically -->
-            </div>
-        </div>
-    </div>
-    
-    <div class="content-wrapper">
-        <!-- Navigation -->
-        <nav class="fixed w-full bg-white bg-opacity-80 backdrop-blur-sm z-50 shadow-sm">
-            <div class="container mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <a href="#" class="text-2xl font-bold text-slate-800">HR.</a>
-                    <div class="hidden md:flex space-x-8">
-                        <a href="#about" class="nav-link text-slate-600 hover:text-slate-900">À propos</a>
-                        <a href="#skills" class="nav-link text-slate-600 hover:text-slate-900">Compétences</a>
-                        <a href="#projects" class="nav-link text-slate-600 hover:text-slate-900">Projets</a>
-                        <a href="#contact" class="nav-link text-slate-600 hover:text-slate-900">Contact</a>
-                    </div>
-                    <button class="md:hidden focus:outline-none">
-                        <i class="fas fa-bars text-slate-600 text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </nav>
+<body>
 
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center pt-16">
-            <div class="container mx-auto px-6 py-20">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-12 md:mb-0 animate-in">
-                        <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Bonjour, je suis <span class="text-blue-600">Hassan Rahhal</span></h1>
-                        <h2 class="text-2xl md:text-3xl text-slate-600 mb-6">Développeur Full Stack</h2>
-                        <p class="text-slate-600 mb-8 max-w-lg">Je crée des applications web interactives et performantes avec des technologies modernes.</p>
-                        <div class="flex space-x-4">
-                            <a href="#projects" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition shadow-lg">
-                                Voir mes projets
-                            </a>
-                            <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition">
-                                Me contacter
-                            </a>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2 flex justify-center animate-in" style="transition-delay: 0.2s">
-                        <div class="relative">
-                            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                                <img src="tt.jpg" alt="Hassan Rahhal" width="350" height="200" style="border-radius: 50%; object-fit: cover; border: 4px solid #0077cc;">
-                                
-                                     
-    
-                            </div>
-                            <div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-full shadow-lg">
-                                <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-code text-blue-600 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">À propos de moi</h2>
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="md:w-1/2 mb-12 md:mb-0 animate-in" style="transition-delay: 0.1s">
-                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-sm max-w-md mx-auto">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-4">Mon parcours</h3>
-                            <p class="text-slate-600 mb-6">Diplômé en informatique avec une spécialisation en développement web, j'ai travaillé sur divers projets allant des applications simples aux solutions complexes.</p>
-                            <p class="text-slate-600">Passionné par la création d'interfaces utilisateur intuitives et d'applications performantes.</p>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2 animate-in" style="transition-delay: 0.2s">
-                        <div class="bg-gradient-to-br from-slate-50 to-slate-100 p-8 rounded-xl shadow-sm max-w-md mx-auto">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-4">Ma philosophie</h3>
-                            <p class="text-slate-600 mb-6">Je crois en une approche centrée sur l'utilisateur, où la technologie doit servir l'expérience humaine et non l'inverse.</p>
-                            <p class="text-slate-600">Mon objectif est de créer des solutions qui allient performance technique et design élégant.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 gradient-bg">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Mes compétences</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <!-- Skill 1 - JavaScript -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in">
-                        <div class="relative w-24 h-24 mx-auto mb-4">
-                            <svg class="w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
-                                        class="skill-circle" data-percent="90" style="stroke-dashoffset: 25.1;"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i class="fab fa-js text-3xl text-yellow-400"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">JavaScript</h3>
-                        <p class="text-slate-600 mb-4">React, Node.js, Vue</p>
-                        <button class="skill-btn bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium transition" 
-                                onclick="showSkillDetails('JavaScript', 'javascript-details', 'https://developer.mozilla.org/fr/docs/Web/JavaScript')">
-                            Voir les détails
-                        </button>
-                    </div>
-                    
-                    <!-- Skill 2 - React -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.1s">
-                        <div class="relative w-24 h-24 mx-auto mb-4">
-                            <svg class="w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
-                                        class="skill-circle" data-percent="85" style="stroke-dashoffset: 37.65;"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i class="fab fa-react text-3xl text-blue-400"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">React</h3>
-                        <p class="text-slate-600 mb-4">Hooks, Context, Redux</p>
-                        <button class="skill-btn bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium transition"
-                                onclick="showSkillDetails('React', 'react-details', 'https://reactjs.org/docs/getting-started.html')">
-                            Voir les détails
-                        </button>
-                    </div>
-                    
-                    <!-- Skill 3 - CSS -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.2s">
-                        <div class="relative w-24 h-24 mx-auto mb-4">
-                            <svg class="w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
-                                        class="skill-circle" data-percent="80" style="stroke-dashoffset: 50.2;"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i class="fab fa-css3-alt text-3xl text-blue-600"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">CSS</h3>
-                        <p class="text-slate-600 mb-4">Tailwind, Flexbox, Grid</p>
-                        <button class="skill-btn bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium transition"
-                                onclick="showSkillDetails('CSS', 'css-details', 'https://developer.mozilla.org/fr/docs/Web/CSS')">
-                            Voir les détails
-                        </button>
-                    </div>
-                    
-                    <!-- Skill 4 - Node.js -->
-                    <div class="bg-white p-6 rounded-xl shadow-sm text-center card-hover animate-in" style="transition-delay: 0.3s">
-                        <div class="relative w-24 h-24 mx-auto mb-4">
-                            <svg class="w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round" 
-                                        class="skill-circle" data-percent="75" style="stroke-dashoffset: 62.75;"/>
-                            </svg>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i class="fab fa-node-js text-3xl text-green-500"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800 mb-2">Node.js</h3>
-                        <p class="text-slate-600 mb-4">Express, MongoDB, REST API</p>
-                        <button class="skill-btn bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium transition"
-                                onclick="showSkillDetails('Node.js', 'node-details', 'https://nodejs.org/en/docs/')">
-                            Voir les détails
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Mes projets récents</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 - Countdown Timer -->
-                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in">
-                        <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
-                            <i class="fas fa-clock text-white text-6xl opacity-80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Countdown Timer</h3>
-                            <p class="text-slate-600 mb-4">Application de compte à rebours personnalisable avec fonctionnalités de sauvegarde et de notifications.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">React</span>
-                                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">LocalStorage</span>
-                            </div>
-                            <a href="https://github.com/hassanrahhal2000/countdown-time" target="_blank" 
-                               class="project-btn inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition mt-3 w-full text-center">
-                                Voir le projet
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 2 - Quiz App -->
-                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in" style="transition-delay: 0.1s">
-                        <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center">
-                            <i class="fas fa-question-circle text-white text-6xl opacity-80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Quiz App</h3>
-                            <p class="text-slate-600 mb-4">Application de quiz interactive avec différents niveaux de difficulté et sujets variés.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">React</span>
-                                <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">TypeScript</span>
-                                <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">API</span>
-                            </div>
-                            <a href="https://github.com/hassanrahhal2000/quiz" target="_blank" 
-                               class="project-btn inline-block bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition mt-3 w-full text-center">
-                                Voir le projet
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Project 3 - Drawing Canvas App -->
-                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in" style="transition-delay: 0.2s">
-                        <div class="h-48 bg-gradient-to-r from-indigo-500 to-indigo-700 flex items-center justify-center">
-                            <i class="fas fa-paint-brush text-white text-6xl opacity-80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Drawing Canvas App</h3>
-                            <p class="text-slate-600 mb-4">Application de dessin en temps réel avec différents outils, couleurs et fonctionnalités d'exportation.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">HTML5 Canvas</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Fabric.js</span>
-                                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">React</span>
-                            </div>
-                            <a href="https://github.com/hassanrahhal2000/drawing" target="_blank" 
-                               class="project-btn inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition mt-3 w-full text-center">
-                                Voir le projet
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 4 - Simple Car Game -->
-                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-sm card-hover animate-in" style="transition-delay: 0.3s">
-                        <div class="h-48 bg-gradient-to-r from-red-500 to-red-700 flex items-center justify-center">
-                            <i class="fas fa-car text-white text-6xl opacity-80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-slate-800 mb-2">Simple Car Game</h3>
-                            <p class="text-slate-600 mb-4">Jeu de voiture simple avec contrôle au clavier et détection de collisions.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">HTML5 Canvas</span>
-                                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Game Logic</span>
-                            </div>
-                            <a href="https://github.com/hassanrahhal2000/simple-game-in-javascript" target="_blank" 
-                               class="project-btn inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition mt-3 w-full text-center">
-                                Voir le projet
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 gradient-bg">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-slate-800 mb-16 animate-in">Contactez-moi</h2>
-                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm overflow-hidden animate-in">
-                    <div class="md:flex">
-                        <div class="md:w-1/2 bg-blue-600 text-white p-8">
-                            <h3 class="text-xl font-semibold mb-4">Informations de contact</h3>
-                            <div class="space-y-4">
-                                <div class="flex items-start">
-                                    <i class="fas fa-envelope mt-1 mr-4 text-blue-200"></i>
-                                    <div>
-                                        <h4 class="font-medium">Email</h4>
-                                        <p class="text-blue-100">hassan.rahhalrahhal194@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-phone-alt mt-1 mr-4 text-blue-200"></i>
-                                    <div>
-                                        <h4 class="font-medium">Téléphone</h4>
-                                        <p class="text-blue-100">+212659560209</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-map-marker-alt mt-1 mr-4 text-blue-200"></i>
-                                    <div>
-                                        <h4 class="font-medium">Adresse</h4>
-                                        <p class="text-blue-100">ouarzazate-morocco</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-8">
-                                <h3 class="text-xl font-semibold mb-4">Réseaux sociaux</h3>
-                                <div class="flex space-x-4">
-                                    <a href="https://github.com/hassanrahhal2000" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
-                                        <i class="fab fa-github"></i>
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/votreprofil" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="#" class="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-400 flex items-center justify-center transition">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2 p-8">
-                            <form class="space-y-4">
-                                <div>
-                                    <label for="name" class="block text-slate-700 mb-1">Nom</label>
-                                    <input type="text" id="name" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-slate-700 mb-1">Email</label>
-                                    <input type="email" id="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-                                </div>
-                                <div>
-                                    <label for="message" class="block text-slate-700 mb-1">Message</label>
-                                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
-                                </div>
-                                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition shadow-lg">
-                                    Envoyer le message
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-slate-800 text-white py-8">
-            <div class="container mx-auto px-6 text-center">
-                <p>© 2023 Hassan Rahhal. Tous droits réservés.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Skill Details Templates (hidden) -->
-    <div id="javascript-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Niveau de maîtrise</div>
-            <div>Avancé (5 ans d'expérience)</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Frameworks Frontend</div>
-            <div>React, Vue.js, Angular</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Frameworks Backend</div>
-            <div>Node.js, Express</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Outils</div>
-            <div>Webpack, Babel, ESLint</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Projets réalisés</div>
-            <div>15+ applications web interactives</div>
-        </div>
-    </div>
-
-    <div id="react-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Niveau de maîtrise</div>
-            <div>Avancé (4 ans d'expérience)</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Concepts maîtrisés</div>
-            <div>Hooks, Context API, Redux, React Router</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Bibliothèques</div>
-            <div>Material-UI, Styled Components, Formik</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Projets réalisés</div>
-            <div>10+ applications React en production</div>
-        </div>
-    </div>
-
-    <div id="css-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Niveau de maîtrise</div>
-            <div>Avancé (5 ans d'expérience)</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Technologies</div>
-            <div>CSS3, SASS, Tailwind CSS, Bootstrap</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Concepts</div>
-            <div>Flexbox, Grid, Animations, Responsive Design</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Projets réalisés</div>
-            <div>20+ interfaces responsive</div>
-        </div>
-    </div>
-
-    <div id="node-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Niveau de maîtrise</div>
-            <div>Intermédiaire (3 ans d'expérience)</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Frameworks</div>
-            <div>Express, NestJS</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Bases de données</div>
-            <div>MongoDB, PostgreSQL, MySQL</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Projets réalisés</div>
-            <div>8+ APIs RESTful</div>
-        </div>
-    </div>
-
-    <div id="drawing-app-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Fonctionnalités</div>
-            <div>Outils de dessin (pinceau, formes, texte), sélection de couleurs, annuler/refaire, export PNG/JPEG</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Technologies clés</div>
-            <div>HTML5 Canvas API, Fabric.js pour les fonctionnalités avancées, React pour l'interface</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Défis relevés</div>
-            <div>Gestion des performances avec de grands canvas, implémentation des outils de dessin, système d'annulation</div>
-        </div>
-    </div>
-
-    <div id="car-game-details" style="display: none;">
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Fonctionnalités</div>
-            <div>Contrôles clavier (flèches), système de collision, score, difficulté progressive</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Technologies clés</div>
-            <div>HTML5 Canvas, JavaScript pur, Algorithmes de détection de collision</div>
-        </div>
-        <div class="skill-detail-item">
-            <div class="skill-detail-title">Défis relevés</div>
-            <div>Gestion des collisions, fluidité des animations, équilibrage de la difficulté</div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize particles.js
-        document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#3b82f6"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": false,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#93c5fd",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-
-            // Animate skills circles on scroll
-            const animateSkills = () => {
-                document.querySelectorAll('.skill-circle').forEach(circle => {
-                    const percent = circle.getAttribute('data-percent');
-                    const offset = 251 - (251 * percent / 100);
-                    circle.style.strokeDashoffset = offset;
-                });
-            };
-
-            // Scroll animation for sections
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.animate-in');
-                const windowHeight = window.innerHeight;
-                
-                elements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    
-                    if (elementPosition < windowHeight - 100) {
-                        element.classList.add('visible');
-                        
-                        if (element.closest('#skills')) {
-                            animateSkills();
-                        }
-                    }
-                });
-            };
-
-            // Initialize animations
-            window.addEventListener('scroll', animateOnScroll);
-            window.addEventListener('load', animateOnScroll);
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                HASSAN RAHHAL
+            </a>
             
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">Accueil</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">À propos</a>
+                <a href="#skills" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">Compétences</a>
+                <a href="#projects" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">Projets</a>
+                <a href="#experience" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">Expérience</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-indigo-600 transition font-medium">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700 text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 w-full glass-nav px-6 py-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">Accueil</a>
+                <a href="#about" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">À propos</a>
+                <a href="#skills" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">Compétences</a>
+                <a href="#projects" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">Projets</a>
+                <a href="#experience" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">Expérience</a>
+                <a href="#contact" class="text-gray-700 hover:text-indigo-600 transition font-medium" onclick="toggleMobileMenu()">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-            // Form submission
-            document.querySelector('form').addEventListener('submit', function(e) {
+    <!-- Hero Section avec votre photo tt.jpg -->
+    <section id="home" class="min-h-screen flex items-center justify-center hero-bg pt-20">
+        <div class="container mx-auto px-6 py-20">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <span class="text-indigo-600 font-semibold text-lg mb-4 block">👋 Bienvenue sur mon portfolio</span>
+                    <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                        Hassan <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Rahhal</span>
+                    </h1>
+                    <h2 class="text-2xl lg:text-3xl text-gray-600 mb-6">
+                        Étudiant en Intelligence Artificielle <span class="text-indigo-600">S6</span>
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8 max-w-2xl">
+                        Passionné par l'IA, le Deep Learning et le développement web. 
+                        Je crée des solutions innovantes qui allient technologie de pointe et expérience utilisateur exceptionnelle.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="gradient-primary text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition transform hover:-translate-y-1">
+                            Voir mes projets
+                        </a>
+                        <a href="#contact" class="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold border-2 border-indigo-600 hover:bg-indigo-50 transition transform hover:-translate-y-1">
+                            Me contacter
+                        </a>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-8">
+                        <a href="https://github.com/hassanrahhal2000" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition transform hover:-translate-y-1">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition transform hover:-translate-y-1">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition transform hover:-translate-y-1">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 flex justify-center" data-aos="fade-left">
+                    <div class="relative">
+                        <!-- Profile Image avec tt.jpg -->
+                        <div class="w-80 h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl float-animation">
+                            <img src="tt.jpg" alt="Hassan Rahhal" class="profile-image" onerror="this.src='https://via.placeholder.com/400?text=Hassan+Rahhal'">
+                        </div>
+                        
+                        <!-- Floating elements -->
+                        <div class="absolute -top-4 -right-4 w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center animate-bounce">
+                            <i class="fab fa-python text-3xl text-indigo-600"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center animate-bounce delay-100">
+                            <i class="fas fa-brain text-3xl text-purple-600"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">À propos de moi</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Découvrez mon parcours, ma passion pour l'IA et ma vision du développement
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="gradient-card p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 gradient-primary rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Formation</h3>
+                    <p class="text-gray-600">
+                        Étudiant en 6ème semestre spécialisé en Intelligence Artificielle. 
+                        Formation approfondie en Machine Learning, Deep Learning et développement web.
+                    </p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="gradient-card p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 gradient-secondary rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Expertise</h3>
+                    <p class="text-gray-600">
+                        Développement d'applications web et d'algorithmes d'IA. 
+                        Expérience en Python, JavaScript, React, et frameworks de Deep Learning.
+                    </p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="gradient-card p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Passions</h3>
+                    <p class="text-gray-600">
+                        IA éthique, traitement d'images, NLP et création d'interfaces innovantes. 
+                        Je crois en une technologie accessible et responsable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">Compétences</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Technologies et outils que je maîtrise
+            </p>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Programming Languages -->
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-6">Langages de programmation</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Python</span>
+                                <span class="text-indigo-600">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">JavaScript/TypeScript</span>
+                                <span class="text-indigo-600">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">C/C++</span>
+                                <span class="text-indigo-600">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">SQL</span>
+                                <span class="text-indigo-600">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI & ML -->
+                <div data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-6">IA & Machine Learning</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">TensorFlow/PyTorch</span>
+                                <span class="text-indigo-600">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Computer Vision (OpenCV)</span>
+                                <span class="text-indigo-600">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">NLP (Transformers)</span>
+                                <span class="text-indigo-600">75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Scikit-learn/Pandas</span>
+                                <span class="text-indigo-600">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skill Tags -->
+            <div class="flex flex-wrap justify-center gap-3 mt-12" data-aos="fade-up">
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Express</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">REST API</span>
+                <span class="skill-tag">GraphQL</span>
+                <span class="skill-tag">Tailwind CSS</span>
+                <span class="skill-tag">Figma</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">Projets réalisés</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Une sélection de mes projets les plus récents
+            </p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 - Countdown Timer -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-clock text-white text-6xl opacity-80"></i>
+                        <div class="absolute inset-0 bg-black opacity-0 hover:opacity-20 transition"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Countdown Timer</h3>
+                        <p class="text-gray-600 mb-4">Application de compte à rebours personnalisable avec notifications et sauvegarde locale.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">React</span>
+                            <span class="skill-tag text-xs">JavaScript</span>
+                            <span class="skill-tag text-xs">LocalStorage</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/hassanrahhal2000/countdown-time" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('countdown')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - Quiz App -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-question-circle text-white text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Quiz App</h3>
+                        <p class="text-gray-600 mb-4">Application de quiz interactive avec différents niveaux et sujets variés.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">React</span>
+                            <span class="skill-tag text-xs">TypeScript</span>
+                            <span class="skill-tag text-xs">API</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/hassanrahhal2000/quiz" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('quiz')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 - Drawing Canvas -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-48 bg-gradient-to-r from-indigo-500 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-paint-brush text-white text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Drawing Canvas</h3>
+                        <p class="text-gray-600 mb-4">Application de dessin en temps réel avec outils avancés et export.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">Canvas API</span>
+                            <span class="skill-tag text-xs">Fabric.js</span>
+                            <span class="skill-tag text-xs">React</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/hassanrahhal2000/drawing" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('drawing')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 - Simple Car Game -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="500">
+                    <div class="h-48 bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+                        <i class="fas fa-car text-white text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Simple Car Game</h3>
+                        <p class="text-gray-600 mb-4">Jeu de course avec collisions, score et difficulté progressive.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">JavaScript</span>
+                            <span class="skill-tag text-xs">Canvas</span>
+                            <span class="skill-tag text-xs">Game Logic</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/hassanrahhal2000/simple-game-in-javascript" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('car')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 - AI Image Classifier -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Image Classifier CNN</h3>
+                        <p class="text-gray-600 mb-4">Classification d'images avec réseau de neurones convolutif (CIFAR-10).</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">Python</span>
+                            <span class="skill-tag text-xs">TensorFlow</span>
+                            <span class="skill-tag text-xs">CNN</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('cnn')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 - Sentiment Analysis -->
+                <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="700">
+                    <div class="h-48 bg-gradient-to-r from-yellow-500 to-red-500 flex items-center justify-center">
+                        <i class="fas fa-smile text-white text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Analyse de sentiments</h3>
+                        <p class="text-gray-600 mb-4">NLP pour l'analyse de sentiments avec BERT et Transformers.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag text-xs">Python</span>
+                            <span class="skill-tag text-xs">Transformers</span>
+                            <span class="skill-tag text-xs">NLP</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="#" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fab fa-github mr-2"></i> Code
+                            </a>
+                            <button onclick="showProjectDetails('nlp')" class="flex-1 border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg hover:bg-indigo-50 transition">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Image Processing Section -->
+    <section id="ai-image" class="section-padding bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">🖼️ IA & Traitement d'images</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Exploration des techniques de Computer Vision et Deep Learning
+            </p>
+            
+            <!-- ML vs DL -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-chart-line text-indigo-600 mr-3"></i>
+                        Machine Learning classique
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        Extraction manuelle de caractéristiques : SIFT, HOG, ORB. Classifieurs SVM, Random Forest.
+                    </p>
+                    <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+<span class="text-green-400"># Extraction HOG</span>
+from skimage.feature import hog
+from sklearn.svm import SVC
+
+features = hog(image, orientations=9, 
+               pixels_per_cell=(8,8))
+clf = SVC().fit(features, labels)</pre>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-brain text-purple-600 mr-3"></i>
+                        Deep Learning (CNN)
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        Apprentissage hiérarchique de caractéristiques. Classification, détection, segmentation.
+                    </p>
+                    <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+<span class="text-green-400"># Modèle CNN simple</span>
+model = Sequential([
+    Conv2D(32,(3,3),activation='relu', 
+           input_shape=(64,64,3)),
+    MaxPooling2D(),
+    Flatten(),
+    Dense(10, activation='softmax')
+])</pre>
+                </div>
+            </div>
+            
+            <!-- Concepts clés -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <div class="bg-white p-6 rounded-xl text-center shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-layer-group text-3xl text-indigo-600 mb-3"></i>
+                    <h4 class="font-bold">CNN</h4>
+                    <p class="text-sm text-gray-600">Convolution, pooling</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl text-center shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-shapes text-3xl text-purple-600 mb-3"></i>
+                    <h4 class="font-bold">SIFT/HOG</h4>
+                    <p class="text-sm text-gray-600">Feature extraction</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl text-center shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-object-group text-3xl text-pink-600 mb-3"></i>
+                    <h4 class="font-bold">Segmentation</h4>
+                    <p class="text-sm text-gray-600">U-Net, Mask R-CNN</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl text-center shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fas fa-eye text-3xl text-blue-600 mb-3"></i>
+                    <h4 class="font-bold">Détection</h4>
+                    <p class="text-sm text-gray-600">YOLO, SSD</p>
+                </div>
+            </div>
+            
+            <!-- Code complet CNN -->
+            <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl" data-aos="fade-up">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-code mr-3 text-indigo-400"></i>
+                    Exemple complet : Classification CIFAR-10 avec CNN
+                </h3>
+                <pre class="text-gray-300 text-sm overflow-x-auto leading-relaxed">
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# Architecture CNN
+model = models.Sequential([
+    layers.Conv2D(32, (3,3), activation='relu', padding='same', input_shape=(32,32,3)),
+    layers.BatchNormalization(),
+    layers.Conv2D(32, (3,3), activation='relu', padding='same'),
+    layers.MaxPooling2D((2,2)),
+    layers.Dropout(0.25),
+
+    layers.Conv2D(64, (3,3), activation='relu', padding='same'),
+    layers.BatchNormalization(),
+    layers.Conv2D(64, (3,3), activation='relu', padding='same'),
+    layers.MaxPooling2D((2,2)),
+    layers.Dropout(0.25),
+
+    layers.Flatten(),
+    layers.Dense(512, activation='relu'),
+    layers.Dropout(0.5),
+    layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Entraînement
+# history = model.fit(train_images, train_labels, 
+#                     epochs=20, validation_split=0.2)</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section-padding bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">Expérience & Formation</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                Mon parcours académique et professionnel
+            </p>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- Timeline -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-6">
+                        <span class="text-indigo-600 font-semibold">2025 - 2026</span>
+                        <h3 class="text-xl font-bold mt-1">Licence en Intelligence Artificielle</h3>
+                        <p class="text-gray-600">Université Ibn Zohr – Faculté Polydisciplinaire d'Ouarzazate (FPO) 👨‍💻🤖</p>
+                        <p class="text-gray-500 mt-2">Spécialisation en Deep Learning, Vision par ordinateur et NLP.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-6">
+                        <span class="text-indigo-600 font-semibold">2022 - 2023</span>
+                        <h3 class="text-xl font-bold mt-1">Baccalauréat en Sciences Physiques</h3>
+                        <p class="text-gray-600">Lycée Idriss Al Oual, Agdz, Maroc</p>
+                        <p class="text-gray-500 mt-2">Mention Bien</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-6">
+                        <span class="text-indigo-600 font-semibold">Été 2023</span>
+                        <h3 class="text-xl font-bold mt-1">Stage Développeur Full Stack</h3>
+                        <p class="text-gray-600">Startup InnovTech</p>
+                        <p class="text-gray-500 mt-2">Développement d'une application web de gestion de projets avec React et Node.js.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center" data-aos="fade-up">Contactez-moi</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+                N'hésitez pas à me contacter pour toute collaboration ou opportunité
+            </p>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Contact Info -->
+                <div data-aos="fade-right">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Informations</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Email</p>
+                                    <a href="mailto:hassanrahhal194@gmail.com" class="text-lg font-medium hover:text-indigo-600 transition">
+                                        hassanrahhal194@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 gradient-secondary rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone-alt text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Téléphone</p>
+                                    <a href="tel:+212659560209" class="text-lg font-medium hover:text-indigo-600 transition">
+                                        +212 659-560209
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Localisation</p>
+                                    <p class="text-lg font-medium">Ouarzazate, Maroc</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Suivez-moi</h4>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/hassanrahhal2000" target="_blank" class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" target="_blank" class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="#" target="_blank" class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" target="_blank" class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 hover:bg-indigo-600 hover:text-white transition">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div data-aos="fade-left">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6">Envoyer un message</h3>
+                        
+                        <form id="contactForm" class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
+                                <input type="text" class="form-input" placeholder="Votre nom" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" class="form-input" placeholder="votre@email.com" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sujet</label>
+                                <input type="text" class="form-input" placeholder="Sujet du message">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                <textarea rows="5" class="form-input" placeholder="Votre message..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full gradient-primary text-white py-4 rounded-xl font-semibold hover:shadow-xl transition transform hover:-translate-y-1">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Envoyer le message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold mb-4 md:mb-0">
+                    HR<span class="text-indigo-400">.</span>
+                </div>
+                
+                <div class="text-gray-400 text-sm">
+                    © 2026 Hassan Rahhal - Tous droits réservés
+                </div>
+                
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Mentions légales</a>
+                    <span class="text-gray-600">|</span>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+            </div>
+            <div id="modalBody" class="text-gray-600">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                alert('Message envoyé! Je vous répondrai bientôt.');
-                this.reset();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
             });
         });
 
-        // Modal functionality with professional links
-        const modal = document.getElementById('skillModal');
-        const modalTitle = document.getElementById('modalSkillTitle');
-        const modalContent = document.getElementById('modalSkillContent');
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Je vous répondrai dans les plus brefs délais.');
+            this.reset();
+        });
 
-        function showSkillDetails(skillName, detailId, professionalLink) {
-            const details = document.getElementById(detailId).innerHTML;
-            modalTitle.textContent = skillName;
+        // Project details modal
+        function showProjectDetails(project) {
+            const modal = document.getElementById('projectModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
             
-            // Add professional link to details
-            modalContent.innerHTML = details + 
-                `<div class="professional-link">
-                    <a href="${professionalLink}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition">
-                        Ressources professionnelles pour ${skillName}
-                    </a>
-                </div>`;
-                
+            const projects = {
+                countdown: {
+                    title: 'Countdown Timer - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Timer personnalisable</li>
+                            <li>Notifications sonores</li>
+                            <li>Sauvegarde locale</li>
+                            <li>Interface responsive</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>React, JavaScript, LocalStorage, Tailwind CSS</p>
+                        <h4 class="font-bold mt-4 mb-2">Défis :</h4>
+                        <p>Gestion du state avec React Hooks, synchronisation des timers, persistance des données.</p>
+                    `
+                },
+                quiz: {
+                    title: 'Quiz App - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Questions aléatoires</li>
+                            <li>Multiples catégories</li>
+                            <li>Score et feedback</li>
+                            <li>Timer par question</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>React, TypeScript, API REST, Tailwind CSS</p>
+                        <h4 class="font-bold mt-4 mb-2">API utilisée :</h4>
+                        <p>Open Trivia Database API</p>
+                    `
+                },
+                drawing: {
+                    title: 'Drawing Canvas - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Outils de dessin (pinceau, formes)</li>
+                            <li>Palette de couleurs</li>
+                            <li>Annuler/Refaire</li>
+                            <li>Export PNG/JPEG</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>Canvas API, Fabric.js, React, Tailwind CSS</p>
+                        <h4 class="font-bold mt-4 mb-2">Défis :</h4>
+                        <p>Gestion des performances, système d'annulation complexe, outils vectoriels.</p>
+                    `
+                },
+                car: {
+                    title: 'Simple Car Game - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Contrôles clavier</li>
+                            <li>Système de collisions</li>
+                            <li>Score progressif</li>
+                            <li>Difficulté croissante</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>JavaScript, Canvas API, Game Loop</p>
+                        <h4 class="font-bold mt-4 mb-2">Défis :</h4>
+                        <p>Détection de collisions, fluidité du jeu, gestion des frames.</p>
+                    `
+                },
+                cnn: {
+                    title: 'Image Classifier CNN - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Classification d'images CIFAR-10</li>
+                            <li>Architecture CNN personnalisée</li>
+                            <li>Data augmentation</li>
+                            <li>Visualisation des prédictions</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>Python, TensorFlow, Keras, Matplotlib</p>
+                        <h4 class="font-bold mt-4 mb-2">Performance :</h4>
+                        <p>Accuracy: 89% sur test set</p>
+                    `
+                },
+                nlp: {
+                    title: 'Analyse de sentiments - Détails',
+                    content: `
+                        <h4 class="font-bold mb-2">Fonctionnalités :</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li>Classification de tweets</li>
+                            <li>Fine-tuning BERT</li>
+                            <li>API de prédiction</li>
+                            <li>Dashboard interactif</li>
+                        </ul>
+                        <h4 class="font-bold mb-2">Technologies :</h4>
+                        <p>Python, Transformers, FastAPI, React</p>
+                        <h4 class="font-bold mt-4 mb-2">Dataset :</h4>
+                        <p>Twitter Sentiment Analysis (1.6M tweets)</p>
+                    `
+                }
+            };
+            
+            const data = projects[project] || projects.countdown;
+            title.textContent = data.title;
+            body.innerHTML = data.content;
+            
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
-        // Close modal when clicking the close button
-        document.querySelector('.close-btn').addEventListener('click', function() {
-            modal.style.display = 'none';
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
             document.body.style.overflow = 'auto';
-        });
+        }
 
-        // Close modal when clicking outside the modal content
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target == modal) {
+                closeModal();
             }
+        }
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-indigo-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-indigo-600');
+                }
+            });
         });
     </script>
 </body>
