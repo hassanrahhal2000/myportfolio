@@ -1,744 +1,1192 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <!-- Viewport corrigé -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Portfolio d'Hassan Rahhal - Étudiant en Intelligence Artificielle & Développeur Web">
+  <title>Hassan Rahhal | Portfolio IA</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+  <!-- Google Fonts (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+            'slide-up': 'slideUp 0.8s ease-out',
+            'pulse-slow': 'pulse 3s infinite'
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     
-    <title>Hassan Rahhal | Portfolio Sans Débordement</title>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #fafcff;
+      color: #0b1e33;
+      transition: background-color 0.3s, color 0.3s;
+    }
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    body.dark {
+      background: #0f172a;
+      color: #f1f5f9;
+    }
     
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    .container-custom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.8rem;
+    }
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    /* Header */
+    .header-border {
+      border-bottom: 1px solid #e2e8f0;
+      background: white;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s;
+    }
     
-    <style>
-        /* RESET COMPLET POUR ÉVITER LES DÉBORDEMENTS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            max-width: 100%; /* Empêche tout débordement */
-        }
-
-        html, body {
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden; /* DÉSACTIVE LE SCROLL HORIZONTAL */
-            position: relative;
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        /* Conteneur principal qui ne déborde jamais */
-        .container-fixed {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            overflow-x: hidden;
-        }
-
-        @media (min-width: 640px) {
-            .container-fixed { padding: 0 1.5rem; }
-        }
-        @media (min-width: 768px) {
-            .container-fixed { padding: 0 2rem; }
-        }
-        @media (min-width: 1024px) {
-            .container-fixed { padding: 0 2rem; }
-        }
-
-        /* Empêche les images de déborder */
-        img, svg, video, canvas, iframe {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Navigation sans débordement */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            left: 0;
-            right: 0;
-            overflow-x: hidden;
-        }
-
-        /* Sections sans débordement */
-        section {
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .section-padding {
-            padding: 4rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 3rem 0;
-            }
-        }
-
-        /* Photo de profil - taille contrôlée */
-        .profile-wrapper {
-            position: relative;
-            width: min(280px, 70vw); /* Ne dépasse jamais l'écran */
-            height: min(280px, 70vw);
-            margin: 0 auto;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 20px 25px -8px rgba(0,0,0,0.2);
-        }
-
-        /* Éléments flottants bien positionnés */
-        .float-item {
-            position: absolute;
-            width: clamp(2.5rem, 8vw, 3.5rem);
-            height: clamp(2.5rem, 8vw, 3.5rem);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Grilles sans débordement */
-        .grid-auto {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: 1.5rem;
-            width: 100%;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .grid-2 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Cartes projet */
-        .project-card {
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-image {
-            height: 160px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Tags */
-        .skill-tag {
-            background: linear-gradient(145deg, #eef2ff, #e0e7ff);
-            border: 1px solid #c7d2fe;
-            color: #4f46e5;
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            font-weight: 500;
-            display: inline-block;
-            margin: 0.2rem;
-            white-space: nowrap;
-        }
-
-        /* Timeline sans débordement */
-        .timeline-item {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 2rem;
-            width: 100%;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -6px;
-            top: 0;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border: 3px solid white;
-        }
-
-        /* Boutons */
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #3b82f6;
-            border: 2px solid #3b82f6;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        /* Formulaires */
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.75rem;
-            font-size: 1rem;
-            max-width: 100%;
-        }
-
-        /* Code blocks */
-        .code-block {
-            background: #0b1120;
-            color: #e2e8f0;
-            border-radius: 1rem;
-            padding: 1rem;
-            font-family: monospace;
-            font-size: 0.8rem;
-            overflow-x: auto;
-            max-width: 100%;
-            width: 100%;
-        }
-
-        /* Social icons */
-        .social-icon {
-            width: 44px;
-            height: 44px;
-            background: #f1f5f9;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #475569;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        /* Menu mobile */
-        .mobile-menu {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            z-index: 999;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            border-bottom: 1px solid rgba(59,130,246,0.1);
-        }
-
-        .mobile-menu.open {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #e2e8f0;
-            width: 100%;
-        }
-
-        /* Utilitaires */
-        .no-overflow {
-            overflow: hidden;
-            max-width: 100%;
-        }
-
-        .flex-wrap-safe {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            max-width: 100%;
-        }
-
-        /* Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        .float { animation: float 5s ease-in-out infinite; }
-    </style>
+    body.dark .header-border {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    
+    .logo-name {
+      font-weight: 800;
+      font-size: 1.7rem;
+      letter-spacing: -0.02em;
+      color: #0f2b45;
+      transition: color 0.3s;
+    }
+    
+    body.dark .logo-name { color: #60a5fa; }
+    
+    .nav-link-img {
+      font-weight: 500;
+      color: #334155;
+      transition: color 0.2s;
+      font-size: 0.98rem;
+      text-decoration: none;
+      position: relative;
+    }
+    
+    body.dark .nav-link-img { color: #cbd5e1; }
+    
+    .nav-link-img::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: width 0.3s;
+    }
+    
+    .nav-link-img:hover::after { width: 100%; }
+    .nav-link-img:hover { color: #2563eb; }
+    
+    /* Buttons */
+    .btn-bleu {
+      background: #2563eb;
+      color: white;
+      padding: 0.7rem 2.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      border: 2px solid #2563eb;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 5px 12px -6px #2563eb;
+      text-decoration: none;
+    }
+    
+    .btn-bleu:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -6px #2563eb;
+    }
+    
+    .btn-outline-cv {
+      background: transparent;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      padding: 0.7rem 2.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .btn-outline-cv:hover {
+      background: #2563eb;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    body.dark .btn-outline-cv {
+      border-color: #60a5fa;
+      color: #60a5fa;
+    }
+    
+    body.dark .btn-outline-cv:hover {
+      background: #60a5fa;
+      color: #0f172a;
+    }
+    
+    /* Profile Image */
+    .profile-img {
+      max-width: 300px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 22px 30px -12px rgba(0,50,100,0.2);
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .profile-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 30px 40px -12px rgba(37,99,235,0.3);
+    }
+    
+    /* Hero */
+    .hero-name {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    
+    @media (max-width: 600px) { .hero-name { font-size: 2.5rem; } }
+    
+    .speciality-badge {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2563eb;
+      display: inline-block;
+    }
+    
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s infinite;
+      color: #2563eb;
+    }
+    
+    @keyframes blink { 50% { opacity: 0; } }
+    
+    /* Project Cards */
+    .project-card {
+      background: white;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.03);
+      transition: transform 0.25s ease, box-shadow 0.25s;
+      border: 1px solid #eef2f6;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    body.dark .project-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 28px -12px rgba(37,99,235,0.15);
+      border-color: #b3d0ff;
+    }
+    
+    .skill-tag {
+      background: #eef2ff;
+      color: #1e40af;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+      margin: 0.2rem 0.3rem 0.2rem 0;
+      transition: all 0.2s;
+    }
+    
+    .skill-tag:hover {
+      background: #2563eb;
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    body.dark .skill-tag {
+      background: #1e3a8a;
+      color: #93c5fd;
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+    
+    /* Filter Buttons */
+    .filter-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: #e2e8f0;
+      color: #475569;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: #2563eb;
+      color: white;
+    }
+    
+    body.dark .filter-btn {
+      background: #334155;
+      color: #cbd5e1;
+    }
+    
+    body.dark .filter-btn:hover,
+    body.dark .filter-btn.active {
+      background: #3b82f6;
+      color: white;
+    }
+    
+    /* Footer */
+    .footer-address {
+      color: #64748b;
+      font-weight: 400;
+      border-top: 1px solid #dee6ef;
+      padding: 2rem 0;
+      margin-top: 2.5rem;
+      transition: border-color 0.3s;
+    }
+    
+    body.dark .footer-address {
+      border-color: #334155;
+      color: #94a3b8;
+    }
+    
+    /* Sections */
+    .section-padding { padding: 4rem 0; }
+    @media (max-width: 700px) { .section-padding { padding: 3rem 0; } }
+    
+    /* Timeline */
+    .timeline-simple {
+      border-left: 3px solid #2563eb30;
+      padding-left: 1.8rem;
+      margin-left: 0.5rem;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s ease;
+    }
+    
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: -2.35rem;
+      top: 0.2rem;
+      width: 1rem;
+      height: 1rem;
+      background: #2563eb;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #93c5fd;
+      transition: transform 0.3s;
+    }
+    
+    .timeline-item:hover .timeline-dot {
+      transform: scale(1.2);
+    }
+    
+    /* Progress Bars */
+    .progress-bg {
+      background: #e4e7eb;
+      height: 0.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    
+    body.dark .progress-bg { background: #334155; }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+      border-radius: 20px;
+      width: 0;
+      transition: width 1.2s ease-out;
+    }
+    
+    /* Form */
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      transition: all 0.3s;
+      background: white;
+      color: #0b1e33;
+    }
+    
+    body.dark .form-input {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f1f5f9;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* Scroll animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Back to top button */
+    #backToTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.4);
+      transition: all 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+      border: none;
+      cursor: pointer;
+    }
+    
+    #backToTop.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    #backToTop:hover {
+      transform: translateY(-5px);
+      background: #1d4ed8;
+    }
+    
+    /* Dark mode toggle */
+    .theme-toggle {
+      width: 50px;
+      height: 26px;
+      background: #e2e8f0;
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    body.dark .theme-toggle { background: #475569; }
+    
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    body.dark .theme-toggle::after {
+      transform: translateX(24px);
+      background: #fbbf24;
+    }
+    
+    /* Loading animation for skills */
+    @keyframes loadProgress {
+      from { width: 0; }
+    }
+    
+    /* Social icons hover */
+    .social-icon {
+      transition: all 0.3s;
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.1);
+    }
+    
+    /* Print styles for CV */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; color: black; }
+      .project-card { break-inside: avoid; }
+    }
+  </style>
 </head>
-<body class="no-overflow">
+<body>
 
-    <!-- Navigation -->
-    <nav class="glass-nav">
-        <div class="container-fixed py-4">
-            <div class="flex justify-between items-center w-full">
-                <a href="#home" class="text-2xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    HR.
-                </a>
+  <!-- Dark Mode Toggle -->
+  <button id="themeToggle" class="no-print fixed top-4 right-4 z-50 p-2 rounded-full bg-white dark:bg-slate-800 shadow-lg" aria-label="Toggle dark mode">
+    <div class="theme-toggle"></div>
+  </button>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-blue-600">Accueil</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-blue-600">À propos</a>
-                    <a href="#skills" class="nav-link text-gray-700 hover:text-blue-600">Compétences</a>
-                    <a href="#projects" class="nav-link text-gray-700 hover:text-blue-600">Projets</a>
-                    <a href="#ai-image" class="nav-link text-gray-700 hover:text-blue-600">IA & Image</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600">Contact</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="menuBtn" class="md:hidden text-2xl text-gray-700 w-12 h-12 flex items-center justify-center">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="mobile-menu md:hidden">
-            <a href="#home">Accueil</a>
-            <a href="#about">À propos</a>
-            <a href="#skills">Compétences</a>
-            <a href="#projects">Projets</a>
-            <a href="#ai-image">IA & Image</a>
-            <a href="#contact">Contact</a>
-        </div>
+  <!-- HEADER -->
+  <header class="header-border">
+    <div class="container-custom flex flex-wrap items-center justify-between">
+      <a href="#accueil" class="logo-name">RAHHAL HASSAN</a>
+      
+      <!-- Navigation Desktop -->
+      <nav class="hidden md:flex gap-8 items-center">
+        <a href="#accueil" class="nav-link-img">Accueil</a>
+        <a href="#profil" class="nav-link-img">Profil</a>
+        <a href="#projets" class="nav-link-img">Projets</a>
+        <a href="#formation" class="nav-link-img">Formation</a>
+        <a href="#competences" class="nav-link-img">Compétences</a>
+        <a href="#contact" class="nav-link-img">Contact</a>
+      </nav>
+      
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-2xl text-gray-600 dark:text-gray-300" id="menuBtn" aria-label="Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <nav class="container-custom md:hidden hidden mt-3 pb-2" id="mobileMenu">
+      <div class="flex flex-col space-y-3 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg">
+        <a href="#accueil" class="nav-link-img py-2" onclick="closeMobileMenu()">🏠 Accueil</a>
+        <a href="#profil" class="nav-link-img py-2" onclick="closeMobileMenu()">👤 Profil</a>
+        <a href="#projets" class="nav-link-img py-2" onclick="closeMobileMenu()">💻 Projets</a>
+        <a href="#formation" class="nav-link-img py-2" onclick="closeMobileMenu()">🎓 Formation</a>
+        <a href="#competences" class="nav-link-img py-2" onclick="closeMobileMenu()">⚡ Compétences</a>
+        <a href="#contact" class="nav-link-img py-2" onclick="closeMobileMenu()">📧 Contact</a>
+      </div>
     </nav>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center pt-24">
-        <div class="container-fixed">
-            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full">
-                
-                <!-- Texte -->
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <span class="inline-block text-blue-600 font-semibold bg-blue-50 px-4 py-2 rounded-full mb-4">
-                        👋 Bienvenue
-                    </span>
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                        Hassan <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Rahhal</span>
-                    </h1>
-                    <h2 class="text-xl md:text-2xl text-gray-600 mb-6">
-                        Étudiant en IA <span class="text-blue-600">S6</span>
-                    </h2>
-                    <p class="text-gray-600 text-base md:text-lg mb-8 max-w-xl mx-auto md:mx-0">
-                        Passionné par l'intelligence artificielle, le Deep Learning et le développement web.
-                    </p>
-                    
-                    <!-- Boutons -->
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-8 w-full">
-                        <a href="#projects" class="btn-primary sm:w-auto">Voir mes projets</a>
-                        <a href="#contact" class="btn-outline sm:w-auto">Me contacter</a>
-                    </div>
-                    
-                    <!-- Social -->
-                    <div class="flex gap-3 justify-center md:justify-start">
-                        <a href="https://github.com/hassanrahhal2000" class="social-icon"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <!-- Photo -->
-                <div class="w-full md:w-1/2 flex justify-center">
-                    <div class="profile-wrapper">
-                        <img src="tt.jpg" alt="Hassan Rahhal" class="profile-img float" onerror="this.src='https://via.placeholder.com/300?text=Hassan'">
-                        <div class="float-item -top-2 -right-2 bg-blue-100">
-                            <i class="fab fa-python text-blue-600 text-lg"></i>
-                        </div>
-                        <div class="float-item -bottom-2 -left-2 bg-purple-100">
-                            <i class="fas fa-brain text-purple-600 text-lg"></i>
-                        </div>
-                    </div>
-                </div>
+  <!-- HERO SECTION -->
+  <section id="accueil" class="pt-14 pb-8">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <!-- Text Content -->
+        <div class="flex-1 text-center md:text-left animate-on-scroll">
+          <h1 class="hero-name">Bonjour, je suis <span class="text-blue-600 typing-cursor" id="typingText"></span></h1>
+          <p class="text-2xl font-medium text-gray-700 dark:text-gray-300 mt-2">Étudiant en Intelligence Artificielle |</p>
+          <p class="speciality-badge mt-1">Développeur Passionné</p>
+          <p class="text-xl text-gray-700 dark:text-gray-300 mt-2">Spécialisé en Développement Web & IA</p>
+          <p class="text-gray-600 dark:text-gray-400 max-w-xl mt-5 text-lg leading-relaxed">
+            Passionné par l'IA, le machine learning et le développement web. Je crée des solutions innovantes combinant intelligence artificielle et technologies web modernes.
+          </p>
+          
+          <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
+            <a href="#contact" class="btn-bleu">
+              <i class="fas fa-paper-plane"></i> Contactez-moi
+            </a>
+            <button onclick="downloadCV()" class="btn-outline-cv">
+              <i class="fas fa-download"></i> Télécharger CV
+            </button>
+          </div>
+          
+          <!-- Stats rapides -->
+          <div class="flex gap-6 mt-10 justify-center md:justify-start">
+            <div class="text-center">
+              <span class="text-3xl font-bold text-blue-600 counter" data-target="15">0</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Projets</p>
             </div>
+            <div class="text-center">
+              <span class="text-3xl font-bold text-blue-600 counter" data-target="3">0</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Ans d'étude</p>
+            </div>
+            <div class="text-center">
+              <span class="text-3xl font-bold text-blue-600 counter" data-target="8">0</span>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Technologies</p>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section-padding bg-white">
-        <div class="container-fixed">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">À propos de moi</h2>
-            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                Découvrez mon parcours
-            </p>
-            
-            <div class="grid-auto">
-                <div class="gradient-card p-6 rounded-2xl">
-                    <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center mb-4">
-                        <i class="fas fa-graduation-cap text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Formation</h3>
-                    <p class="text-gray-600">Licence en Intelligence Artificielle (S6) - Université Ibn Zohr, FPO Ouarzazate</p>
-                </div>
-                
-                <div class="gradient-card p-6 rounded-2xl">
-                    <div class="w-12 h-12 gradient-secondary rounded-xl flex items-center justify-center mb-4">
-                        <i class="fas fa-code text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Expertise</h3>
-                    <p class="text-gray-600">Full Stack (React, Node.js) et IA (TensorFlow, PyTorch)</p>
-                </div>
-                
-                <div class="gradient-card p-6 rounded-2xl">
-                    <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-cyan-500 rounded-xl flex items-center justify-center mb-4">
-                        <i class="fas fa-heart text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Passions</h3>
-                    <p class="text-gray-600">IA éthique, traitement d'images, NLP et UI/UX design</p>
-                </div>
+        
+        <!-- Profile Photo - VOTRE IMAGE -->
+        <div class="flex-1 flex justify-center animate-on-scroll">
+          <div class="relative">
+            <img src="tt.jpng" 
+                 alt="Hassan Rahhal" 
+                 class="profile-img"
+                 onerror="this.src='https://ui-avatars.com/api/?name=Hassan+R&size=300&background=2563eb&color=fff&font-size=1.8&rounded=true'">
+            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-slate-800 flex items-center justify-center" title="Disponible">
+              <span class="text-white text-xs">✓</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+      
+      <div class="w-full h-px bg-gray-200 dark:bg-slate-700 my-12"></div>
+    </div>
+  </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section-padding bg-gray-50">
-        <div class="container-fixed">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Compétences</h2>
-            <p class="text-center text-gray-600 mb-12">Technologies maîtrisées</p>
-            
-            <div class="grid-2 gap-8 mb-12">
-                <!-- Langages -->
-                <div>
-                    <h3 class="text-xl font-bold mb-6">Langages</h3>
-                    <div class="space-y-4">
-                        <div><div class="flex justify-between mb-2"><span>Python</span><span>90%</span></div><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>JavaScript/TS</span><span>85%</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>C/C++</span><span>75%</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>SQL</span><span>80%</span></div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
-                    </div>
-                </div>
-                
-                <!-- IA & ML -->
-                <div>
-                    <h3 class="text-xl font-bold mb-6">IA & Machine Learning</h3>
-                    <div class="space-y-4">
-                        <div><div class="flex justify-between mb-2"><span>TensorFlow/PyTorch</span><span>85%</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>Computer Vision</span><span>80%</span></div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>NLP (Transformers)</span><span>75%</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
-                        <div><div class="flex justify-between mb-2"><span>Scikit-learn/Pandas</span><span>85%</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    </div>
-                </div>
+  <!-- PROJETS SECTION -->
+  <section id="projets" class="section-padding bg-white dark:bg-slate-900">
+    <div class="container-custom">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 animate-on-scroll">Projets réalisés</h2>
+      <p class="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 animate-on-scroll">Une sélection de mes projets combinant IA et développement web</p>
+      
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-2 mb-8 animate-on-scroll">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="ia">🤖 IA</button>
+        <button class="filter-btn" data-filter="web">🌐 Web</button>
+        <button class="filter-btn" data-filter="game">🎮 Jeux</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid">
+        
+        <!-- Project 1: Countdown Timer -->
+        <article class="project-card animate-on-scroll" data-category="web">
+          <div class="h-44 bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+            <i class="fas fa-clock text-white text-5xl"></i>
+          </div>
+          <div class="p-5 flex-grow">
+            <h3 class="text-xl font-bold mb-2">Countdown Timer</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de compte à rebours avec notifications push et persistance des données.</p>
+            <div class="mb-4">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">LocalStorage</span>
             </div>
-            
-            <!-- Tags -->
-            <div class="flex-wrap-safe justify-center">
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">Express</span>
-                <span class="skill-tag">MongoDB</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">REST API</span>
-                <span class="skill-tag">Tailwind</span>
-                <span class="skill-tag">OpenCV</span>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Countdown Timer')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
             </div>
+          </div>
+        </article>
+        
+        <!-- Project 2: Quiz App -->
+        <article class="project-card animate-on-scroll" data-category="web">
+          <div class="h-44 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+            <i class="fas fa-question-circle text-white text-5xl"></i>
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Quiz App</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de quiz interactive avec API externe et système de scoring.</p>
+            <div class="mb-4">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">REST API</span>
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Quiz App')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Project 3: Drawing Canvas -->
+        <article class="project-card animate-on-scroll" data-category="web">
+          <div class="h-44 bg-gradient-to-r from-indigo-500 to-blue-600 flex items-center justify-center">
+            <i class="fas fa-paint-brush text-white text-5xl"></i>
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Drawing Canvas</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de dessin collaboratif en temps réel avec export d'image.</p>
+            <div class="mb-4">
+              <span class="skill-tag">Canvas API</span>
+              <span class="skill-tag">Fabric.js</span>
+              <span class="skill-tag">WebSocket</span>
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Drawing Canvas')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Project 4: Car Game -->
+        <article class="project-card animate-on-scroll" data-category="game">
+          <div class="h-44 bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
+            <i class="fas fa-car text-white text-5xl"></i>
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Simple Car Game</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Jeu de course arcade avec détection de collisions et système de score.</p>
+            <div class="mb-4">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">Canvas</span>
+              <span class="skill-tag">Game Loop</span>
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Car Game')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Jouer</a>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Project 5: IA Image Classifier -->
+        <article class="project-card animate-on-scroll" data-category="ia">
+          <div class="h-44 bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center">
+            <i class="fas fa-brain text-white text-5xl"></i>
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Image Classifier IA</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Classification d'images avec TensorFlow.js directement dans le navigateur.</p>
+            <div class="mb-4">
+              <span class="skill-tag">TensorFlow.js</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Computer Vision</span>
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Image Classifier')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Project 6: Chatbot NLP -->
+        <article class="project-card animate-on-scroll" data-category="ia">
+          <div class="h-44 bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center">
+            <i class="fas fa-robot text-white text-5xl"></i>
+          </div>
+          <div class="p-5">
+            <h3 class="text-xl font-bold mb-2">Chatbot NLP</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-3">Assistant conversationnel avec traitement du langage naturel et intégration API.</p>
+            <div class="mb-4">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">NLTK</span>
+              <span class="skill-tag">FastAPI</span>
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Chatbot NLP')"><i class="fab fa-github mr-1"></i>Code</a>
+              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
+            </div>
+          </div>
+        </article>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIL SECTION -->
+  <section id="profil" class="py-12 bg-gray-50 dark:bg-slate-800">
+    <div class="container-custom">
+      <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">À propos de moi</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
+          <i class="fas fa-graduation-cap text-3xl text-blue-600 mb-3"></i>
+          <h3 class="text-xl font-bold mb-2">Formation</h3>
+          <p class="text-gray-600 dark:text-gray-300">Licence en Intelligence Artificielle (S6) – Université Ibn Zohr. Spécialisation Deep Learning & Computer Vision.</p>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section-padding bg-white">
-        <div class="container-fixed">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Projets</h2>
-            <p class="text-center text-gray-600 mb-12">Mes réalisations sur GitHub</p>
-            
-            <div class="grid-auto">
-                <!-- Countdown Timer -->
-                <div class="project-card">
-                    <div class="project-image bg-gradient-to-r from-blue-500 to-cyan-500">
-                        <i class="fas fa-clock text-white text-4xl"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold mb-2">Countdown Timer</h3>
-                        <p class="text-gray-600 text-sm mb-3">Application de compte à rebours</p>
-                        <div class="flex-wrap-safe mb-4">
-                            <span class="skill-tag text-xs">React</span>
-                            <span class="skill-tag text-xs">JavaScript</span>
-                        </div>
-                        <a href="https://github.com/hassanrahhal2000/countdown-time" target="_blank" class="btn-primary text-sm py-2">
-                            <i class="fab fa-github mr-2"></i> Code
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Quiz App -->
-                <div class="project-card">
-                    <div class="project-image bg-gradient-to-r from-purple-500 to-pink-500">
-                        <i class="fas fa-question-circle text-white text-4xl"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold mb-2">Quiz App</h3>
-                        <p class="text-gray-600 text-sm mb-3">Application de quiz interactive</p>
-                        <div class="flex-wrap-safe mb-4">
-                            <span class="skill-tag text-xs">React</span>
-                            <span class="skill-tag text-xs">TypeScript</span>
-                        </div>
-                        <a href="https://github.com/hassanrahhal2000/quiz" target="_blank" class="btn-primary text-sm py-2">
-                            <i class="fab fa-github mr-2"></i> Code
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Drawing Canvas -->
-                <div class="project-card">
-                    <div class="project-image bg-gradient-to-r from-indigo-500 to-blue-600">
-                        <i class="fas fa-paint-brush text-white text-4xl"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold mb-2">Drawing Canvas</h3>
-                        <p class="text-gray-600 text-sm mb-3">Application de dessin</p>
-                        <div class="flex-wrap-safe mb-4">
-                            <span class="skill-tag text-xs">Canvas</span>
-                            <span class="skill-tag text-xs">React</span>
-                        </div>
-                        <a href="https://github.com/hassanrahhal2000/drawing" target="_blank" class="btn-primary text-sm py-2">
-                            <i class="fab fa-github mr-2"></i> Code
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Car Game -->
-                <div class="project-card">
-                    <div class="project-image bg-gradient-to-r from-red-500 to-orange-500">
-                        <i class="fas fa-car text-white text-4xl"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold mb-2">Simple Car Game</h3>
-                        <p class="text-gray-600 text-sm mb-3">Jeu de course</p>
-                        <div class="flex-wrap-safe mb-4">
-                            <span class="skill-tag text-xs">JavaScript</span>
-                            <span class="skill-tag text-xs">Canvas</span>
-                        </div>
-                        <a href="https://github.com/hassanrahhal2000/simple-game-in-javascript" target="_blank" class="btn-primary text-sm py-2">
-                            <i class="fab fa-github mr-2"></i> Code
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
+          <i class="fas fa-code text-3xl text-pink-500 mb-3"></i>
+          <h3 class="text-xl font-bold mb-2">Expertise</h3>
+          <p class="text-gray-600 dark:text-gray-300">Full Stack (React, Node.js) et modèles IA (TensorFlow, PyTorch, Scikit-learn).</p>
         </div>
-    </section>
-
-    <!-- AI Image Section -->
-    <section id="ai-image" class="section-padding bg-gradient-to-br from-blue-50 to-purple-50">
-        <div class="container-fixed">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">🖼️ IA & Traitement d'images</h2>
-            
-            <div class="grid-2 gap-6 mb-12">
-                <div class="bg-white p-6 rounded-2xl">
-                    <h3 class="text-xl font-bold mb-4">ML Classique</h3>
-                    <p class="text-gray-600 mb-4">Extraction manuelle (SIFT, HOG) + SVM</p>
-                    <div class="code-block">
-                        <span class="text-green-400"># Extraction HOG</span><br>
-                        from skimage.feature import hog<br>
-                        features = hog(image, orientations=9)
-                    </div>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl">
-                    <h3 class="text-xl font-bold mb-4">Deep Learning (CNN)</h3>
-                    <p class="text-gray-600 mb-4">Apprentissage hiérarchique</p>
-                    <div class="code-block">
-                        <span class="text-green-400"># CNN simple</span><br>
-                        model = Sequential([<br>
-                        &nbsp;&nbsp;Conv2D(32,(3,3),activation='relu'),<br>
-                        &nbsp;&nbsp;Dense(10, activation='softmax')])
-                    </div>
-                </div>
-            </div>
+        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
+          <i class="fas fa-heart text-3xl text-green-500 mb-3"></i>
+          <h3 class="text-xl font-bold mb-2">Passions</h3>
+          <p class="text-gray-600 dark:text-gray-300">IA éthique, traitement d'images, NLP, UI/UX design et open source.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section-padding bg-gray-50">
-        <div class="container-fixed">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Contact</h2>
-            
-            <div class="grid-2 gap-8 max-w-5xl mx-auto">
-                <!-- Infos -->
-                <div class="bg-white p-6 rounded-2xl">
-                    <h3 class="text-2xl font-bold mb-6">Informations</h3>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 gradient-primary rounded-xl flex-center">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600">Email</p>
-                                <a href="mailto:hassanrahhal194@gmail.com" class="font-medium break-all">hassanrahhal194@gmail.com</a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 gradient-secondary rounded-xl flex-center">
-                                <i class="fas fa-phone-alt text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600">Téléphone</p>
-                                <a href="tel:+212659560209">+212 659-560209</a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-gradient-to-r from-green-400 to-cyan-500 rounded-xl flex-center">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-600">Localisation</p>
-                                <p>Ouarzazate, Maroc</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-3 mt-6">
-                        <a href="https://github.com/hassanrahhal2000" class="social-icon"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Formulaire -->
-                <div class="bg-white p-6 rounded-2xl">
-                    <h3 class="text-2xl font-bold mb-6">Message</h3>
-                    
-                    <form id="contactForm" class="space-y-4">
-                        <input type="text" placeholder="Nom" class="form-input" required>
-                        <input type="email" placeholder="Email" class="form-input" required>
-                        <input type="text" placeholder="Sujet" class="form-input">
-                        <textarea rows="4" placeholder="Message" class="form-input" required></textarea>
-                        <button type="submit" class="btn-primary py-3">
-                            <i class="fas fa-paper-plane mr-2"></i> Envoyer
-                        </button>
-                    </form>
-                </div>
-            </div>
+  <!-- COMPÉTENCES SECTION -->
+  <section id="competences" class="py-12 bg-white dark:bg-slate-900">
+    <div class="container-custom max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">Compétences & Langues</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Technical Skills -->
+        <div class="space-y-4 animate-on-scroll">
+          <h3 class="font-semibold text-lg mb-3 text-blue-600 dark:text-blue-400">💻 Techniques</h3>
+          <div><p class="font-medium mb-1">Python <span class="float-right text-blue-600 dark:text-blue-400">90%</span></p><div class="progress-bg"><div class="progress-fill" data-width="90%"></div></div></div>
+          <div><p class="font-medium mb-1">JavaScript/TypeScript <span class="float-right text-blue-600 dark:text-blue-400">85%</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
+          <div><p class="font-medium mb-1">TensorFlow/PyTorch <span class="float-right text-blue-600 dark:text-blue-400">85%</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
+          <div><p class="font-medium mb-1">Computer Vision <span class="float-right text-blue-600 dark:text-blue-400">80%</span></p><div class="progress-bg"><div class="progress-fill" data-width="80%"></div></div></div>
+          <div><p class="font-medium mb-1">React/Node.js <span class="float-right text-blue-600 dark:text-blue-400">80%</span></p><div class="progress-bg"><div class="progress-fill" data-width="80%"></div></div></div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-6">
-        <div class="container-fixed">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="text-2xl font-bold">HR<span class="text-blue-400">.</span></div>
-                <div class="text-sm text-gray-400">© 2026 Hassan Rahhal</div>
-                <div class="flex gap-4 text-sm">
-                    <a href="#" class="text-gray-400 hover:text-white">Mentions</a>
-                    <span class="text-gray-600">|</span>
-                    <a href="#" class="text-gray-400 hover:text-white">Confidentialité</a>
-                </div>
-            </div>
+        
+        <!-- Languages & Soft Skills -->
+        <div class="space-y-4 animate-on-scroll">
+          <h3 class="font-semibold text-lg mb-3 text-green-600 dark:text-green-400">🌍 Langues & Soft Skills</h3>
+          <div><p class="font-medium mb-1">Français <span class="float-right text-blue-600 dark:text-blue-400">C1</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
+          <div><p class="font-medium mb-1">Anglais <span class="float-right text-blue-600 dark:text-blue-400">B2</span></p><div class="progress-bg"><div class="progress-fill" data-width="75%"></div></div></div>
+          <div><p class="font-medium mb-1">Arabe <span class="float-right text-blue-600 dark:text-blue-400">Natif</span></p><div class="progress-bg"><div class="progress-fill" data-width="100%"></div></div></div>
+          <div><p class="font-medium mb-1">Travail d'équipe <span class="float-right text-blue-600 dark:text-blue-400">★★★★☆</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
+          <div><p class="font-medium mb-1">Résolution de problèmes <span class="float-right text-blue-600 dark:text-blue-400">★★★★★</span></p><div class="progress-bg"><div class="progress-fill" data-width="95%"></div></div></div>
         </div>
-    </footer>
+      </div>
+      
+      <!-- Tech Stack Tags -->
+      <div class="flex flex-wrap justify-center gap-2 mt-10 animate-on-scroll">
+        <span class="skill-tag">React</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span>
+        <span class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span><span class="skill-tag">OpenCV</span>
+        <span class="skill-tag">Docker</span><span class="skill-tag">MongoDB</span><span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Tailwind</span><span class="skill-tag">Git</span><span class="skill-tag">FastAPI</span>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Menu mobile
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+  <!-- FORMATION TIMELINE -->
+  <section id="formation" class="py-12 bg-gray-50 dark:bg-slate-800">
+    <div class="container-custom max-w-3xl">
+      <h2 class="text-3xl font-bold text-center mb-10 animate-on-scroll">Expérience & Formation</h2>
+      <div class="timeline-simple">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2025 – 2026</span>
+          <h3 class="text-xl font-bold">Licence en Intelligence Artificielle</h3>
+          <p class="text-gray-600 dark:text-gray-400">Université Ibn Zohr, FPO Ouarzazate</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Deep Learning • Computer Vision • NLP • MLOps</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2024</span>
+          <h3 class="text-xl font-bold">Stage PFE - Développement IA</h3>
+          <p class="text-gray-600 dark:text-gray-400">Entreprise Tech, Agadir</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Création d'un modèle de classification d'images avec TensorFlow</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2022 – 2023</span>
+          <h3 class="text-xl font-bold">Baccalauréat Sciences Physiques</h3>
+          <p class="text-gray-600 dark:text-gray-400">Lycée Idriss Al Oual, Agdz</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Mention Bien • Option Sciences</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-        });
+  <!-- CONTACT SECTION - VOTRE EMAIL -->
+  <section id="contact" class="py-12 bg-white dark:bg-slate-900">
+    <div class="container-custom max-w-5xl">
+      <h2 class="text-3xl font-bold text-center mb-2 animate-on-scroll">Contactez-moi</h2>
+      <p class="text-center text-gray-600 dark:text-gray-400 mb-10 animate-on-scroll">N'hésitez pas à me contacter pour un projet ou une opportunité</p>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Contact Info - VOTRE EMAIL -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl animate-on-scroll">
+          <div class="space-y-5">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                <a href="mailto:hassanrahhal194@gmail.com" class="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">hassanrahhal194@gmail.com</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Téléphone</p>
+                <a href="tel:+212600000000" class="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">+212 6XX-XXX XXX</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-green-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Localisation</p>
+                <span class="font-medium">Maroc 🇲🇦</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Links -->
+          <div class="mt-8 flex gap-3">
+            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white transition" aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-sky-500 hover:text-white transition" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl animate-on-scroll">
+          <h3 class="text-2xl font-bold mb-4">Envoyer un message</h3>
+          <form id="contactForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1" for="name">Nom *</label>
+              <input type="text" id="name" name="name" placeholder="Votre nom" class="form-input" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1" for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.com" class="form-input" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1" for="subject">Sujet</label>
+              <input type="text" id="subject" name="subject" placeholder="Sujet du message" class="form-input">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1" for="message">Message *</label>
+              <textarea id="message" name="message" rows="4" placeholder="Votre message..." class="form-input" required></textarea>
+            </div>
+            <button type="submit" class="btn-bleu w-full justify-center">
+              <i class="fas fa-paper-plane"></i> Envoyer le message
+            </button>
+            <p id="formStatus" class="text-center text-sm mt-2 hidden"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Fermer menu au clic sur un lien
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
+  <!-- FOOTER -->
+  <footer class="footer-address">
+    <div class="container-custom flex flex-col sm:flex-row justify-between items-center gap-3">
+      <span class="text-gray-500 dark:text-gray-400">© 2026 Hassan Rahhal</span>
+      <span class="font-medium text-gray-700 dark:text-gray-300">Wadi Islaimi</span>
+      <span class="text-gray-400"><i class="fa-regular fa-heart"></i></span>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" aria-label="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Project Modal -->
+  <div id="projectModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4" onclick="closeModal(event)">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl transform transition-all" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-start mb-4">
+        <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+        <button onclick="closeModalBtn()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-2xl">&times;</button>
+      </div>
+      <p id="modalDesc" class="text-gray-600 dark:text-gray-400 mb-4"></p>
+      <div id="modalTech" class="flex flex-wrap gap-2 mb-6"></div>
+      <div class="flex gap-3">
+        <a href="#" class="btn-bleu flex-1 text-center"><i class="fab fa-github mr-1"></i>Voir le code</a>
+        <a href="#" class="btn-outline-cv flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Voir la démo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ===== DARK MODE TOGGLE =====
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      html.classList.add('dark');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // ===== MOBILE MENU =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    menuBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    function closeMobileMenu() {
+      mobileMenu?.classList.add('hidden');
+    }
+    
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu?.contains(e.target) && !menuBtn?.contains(e.target)) {
+        mobileMenu?.classList.add('hidden');
+      }
+    });
+
+    // ===== TYPING EFFECT =====
+    const typingTexts = ['Hassan', 'un développeur IA', 'un passionné de tech', 'votre futur collaborateur'];
+    let textIndex = 0, charIndex = 0, isDeleting = false;
+    const typingElement = document.getElementById('typingText');
+    
+    function typeEffect() {
+      const currentText = typingTexts[textIndex];
+      
+      if (isDeleting) {
+        typingElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typingElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+      }
+      
+      let speed = isDeleting ? 40 : 80;
+      
+      if (!isDeleting && charIndex === currentText.length) {
+        speed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % typingTexts.length;
+        speed = 500;
+      }
+      
+      setTimeout(typeEffect, speed);
+    }
+    typeEffect();
+
+    // ===== SCROLL ANIMATIONS =====
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          if (entry.target.querySelector('.progress-fill')) {
+            entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+              bar.style.width = bar.dataset.width;
             });
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offset = 80;
-                    const targetPos = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                    window.scrollTo({ top: targetPos, behavior: 'smooth' });
-                }
+          }
+          
+          if (entry.target.querySelector('.counter')) {
+            entry.target.querySelectorAll('.counter').forEach(counter => {
+              animateCounter(counter);
             });
-        });
+          }
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.animate-on-scroll, .timeline-item').forEach(el => {
+      observer.observe(el);
+    });
 
-        // Formulaire
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Message envoyé !');
-            this.reset();
-        });
+    // ===== COUNTER ANIMATION =====
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      let count = 0;
+      const increment = Math.ceil(target / 50);
+      const timer = setInterval(() => {
+        count += increment;
+        if (count >= target) {
+          el.textContent = target + '+';
+          clearInterval(timer);
+        } else {
+          el.textContent = count;
+        }
+      }, 30);
+    }
 
-        // Vérification qu'il n'y a pas de débordement
-        window.addEventListener('load', function() {
-            if (document.body.scrollWidth > window.innerWidth) {
-                console.warn('Débordement détecté de', document.body.scrollWidth - window.innerWidth, 'px');
-            }
+    // ===== PROJECT FILTER =====
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.dataset.filter;
+        
+        projectCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'flex';
+            setTimeout(() => card.style.opacity = '1', 10);
+          } else {
+            card.style.opacity = '0';
+            setTimeout(() => card.style.display = 'none', 300);
+          }
         });
-    </script>
+      });
+    });
+
+    // ===== PROJECT MODAL =====
+    const projectData = {
+      'Countdown Timer': { desc: 'Application web de compte à rebours avec notifications, persistance des données et interface responsive.', tech: ['React', 'JavaScript', 'LocalStorage', 'CSS3'] },
+      'Quiz App': { desc: 'Quiz interactif avec questions dynamiques via API, système de scoring et historique des parties.', tech: ['React', 'TypeScript', 'REST API', 'Tailwind'] },
+      'Drawing Canvas': { desc: 'Application de dessin collaborative en temps réel avec outils de dessin, export PNG et WebSocket.', tech: ['Canvas API', 'Fabric.js', 'WebSocket', 'Node.js'] },
+      'Car Game': { desc: 'Jeu de course arcade avec physique de collision, système de score et contrôles clavier/souris.', tech: ['JavaScript', 'Canvas', 'Game Loop', 'ES6+'] },
+      'Image Classifier': { desc: 'Classification d\'images en temps réel avec TensorFlow.js, support de la webcam et modèles pré-entraînés.', tech: ['TensorFlow.js', 'Python', 'Computer Vision', 'Transfer Learning'] },
+      'Chatbot NLP': { desc: 'Assistant conversationnel intelligent avec compréhension du langage naturel et intégration API externe.', tech: ['Python', 'NLTK', 'FastAPI', 'React'] }
+    };
+    
+    function showProjectModal(projectName) {
+      const modal = document.getElementById('projectModal');
+      const data = projectData[projectName];
+      
+      if (data) {
+        document.getElementById('modalTitle').textContent = projectName;
+        document.getElementById('modalDesc').textContent = data.desc;
+        
+        const techContainer = document.getElementById('modalTech');
+        techContainer.innerHTML = data.tech.map(t => `<span class="skill-tag">${t}</span>`).join('');
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    function closeModalBtn() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    
+    function closeModal(e) {
+      if (e.target.id === 'projectModal') closeModalBtn();
+    }
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModalBtn();
+    });
+
+    // ===== CONTACT FORM =====
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    
+    contactForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+      btn.disabled = true;
+      
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      formStatus.textContent = '✅ Message envoyé avec succès ! Je vous répondrai bientôt.';
+      formStatus.className = 'text-center text-sm mt-2 text-green-600 dark:text-green-400';
+      formStatus.classList.remove('hidden');
+      
+      contactForm.reset();
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      
+      setTimeout(() => formStatus.classList.add('hidden'), 5000);
+    });
+
+    // ===== DOWNLOAD CV =====
+    function downloadCV() {
+      alert('📄 Préparation du CV...\n\nDans une version réelle, cela téléchargerait votre CV en PDF.');
+    }
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    
+    backToTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===== HEADER SCROLL EFFECT =====
+    const header = document.querySelector('.header-border');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+        header.style.padding = '0.8rem 0';
+      } else {
+        header.style.boxShadow = 'none';
+        header.style.padding = '1.2rem 0';
+      }
+    });
+
+    // ===== INITIALIZE =====
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        if (isElementInViewport(el)) el.classList.add('visible');
+      });
+    });
+    
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.85;
+    }
+  </script>
 </body>
 </html>
