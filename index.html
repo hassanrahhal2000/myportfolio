@@ -1,1192 +1,304 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="Portfolio d'Hassan Rahhal - Étudiant en Intelligence Artificielle & Développeur Web">
-  <title>Hassan Rahhal | Portfolio IA</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
-  <!-- Google Fonts (Inter) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-          animation: {
-            'fade-in': 'fadeIn 0.6s ease-out',
-            'slide-up': 'slideUp 0.8s ease-out',
-            'pulse-slow': 'pulse 3s infinite'
-          },
-          keyframes: {
-            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            slideUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
-          }
-        }
-      }
-    }
-  </script>
-  
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #fafcff;
-      color: #0b1e33;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    
-    body.dark {
-      background: #0f172a;
-      color: #f1f5f9;
-    }
-    
-    .container-custom {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.8rem;
-    }
-    
-    /* Header */
-    .header-border {
-      border-bottom: 1px solid #e2e8f0;
-      background: white;
-      padding: 1.2rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      transition: all 0.3s;
-    }
-    
-    body.dark .header-border {
-      background: #1e293b;
-      border-color: #334155;
-    }
-    
-    .logo-name {
-      font-weight: 800;
-      font-size: 1.7rem;
-      letter-spacing: -0.02em;
-      color: #0f2b45;
-      transition: color 0.3s;
-    }
-    
-    body.dark .logo-name { color: #60a5fa; }
-    
-    .nav-link-img {
-      font-weight: 500;
-      color: #334155;
-      transition: color 0.2s;
-      font-size: 0.98rem;
-      text-decoration: none;
-      position: relative;
-    }
-    
-    body.dark .nav-link-img { color: #cbd5e1; }
-    
-    .nav-link-img::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #2563eb;
-      transition: width 0.3s;
-    }
-    
-    .nav-link-img:hover::after { width: 100%; }
-    .nav-link-img:hover { color: #2563eb; }
-    
-    /* Buttons */
-    .btn-bleu {
-      background: #2563eb;
-      color: white;
-      padding: 0.7rem 2.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.98rem;
-      border: 2px solid #2563eb;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 5px 12px -6px #2563eb;
-      text-decoration: none;
-    }
-    
-    .btn-bleu:hover {
-      background: #1d4ed8;
-      border-color: #1d4ed8;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px -6px #2563eb;
-    }
-    
-    .btn-outline-cv {
-      background: transparent;
-      border: 2px solid #2563eb;
-      color: #2563eb;
-      padding: 0.7rem 2.2rem;
-      border-radius: 40px;
-      font-weight: 600;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-    }
-    
-    .btn-outline-cv:hover {
-      background: #2563eb;
-      color: white;
-      transform: translateY(-2px);
-    }
-    
-    body.dark .btn-outline-cv {
-      border-color: #60a5fa;
-      color: #60a5fa;
-    }
-    
-    body.dark .btn-outline-cv:hover {
-      background: #60a5fa;
-      color: #0f172a;
-    }
-    
-    /* Profile Image */
-    .profile-img {
-      max-width: 300px;
-      border-radius: 50%;
-      border: 5px solid white;
-      box-shadow: 0 22px 30px -12px rgba(0,50,100,0.2);
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .profile-img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 30px 40px -12px rgba(37,99,235,0.3);
-    }
-    
-    /* Hero */
-    .hero-name {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-    
-    @media (max-width: 600px) { .hero-name { font-size: 2.5rem; } }
-    
-    .speciality-badge {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #2563eb;
-      display: inline-block;
-    }
-    
-    .typing-cursor::after {
-      content: '|';
-      animation: blink 1s infinite;
-      color: #2563eb;
-    }
-    
-    @keyframes blink { 50% { opacity: 0; } }
-    
-    /* Project Cards */
-    .project-card {
-      background: white;
-      border-radius: 1.2rem;
-      overflow: hidden;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.03);
-      transition: transform 0.25s ease, box-shadow 0.25s;
-      border: 1px solid #eef2f6;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    body.dark .project-card {
-      background: #1e293b;
-      border-color: #334155;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 22px 28px -12px rgba(37,99,235,0.15);
-      border-color: #b3d0ff;
-    }
-    
-    .skill-tag {
-      background: #eef2ff;
-      color: #1e40af;
-      padding: 0.25rem 1rem;
-      border-radius: 30px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-block;
-      margin: 0.2rem 0.3rem 0.2rem 0;
-      transition: all 0.2s;
-    }
-    
-    .skill-tag:hover {
-      background: #2563eb;
-      color: white;
-      transform: scale(1.05);
-    }
-    
-    body.dark .skill-tag {
-      background: #1e3a8a;
-      color: #93c5fd;
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.8rem;
-    }
-    
-    /* Filter Buttons */
-    .filter-btn {
-      padding: 0.5rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      background: #e2e8f0;
-      color: #475569;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .filter-btn:hover, .filter-btn.active {
-      background: #2563eb;
-      color: white;
-    }
-    
-    body.dark .filter-btn {
-      background: #334155;
-      color: #cbd5e1;
-    }
-    
-    body.dark .filter-btn:hover,
-    body.dark .filter-btn.active {
-      background: #3b82f6;
-      color: white;
-    }
-    
-    /* Footer */
-    .footer-address {
-      color: #64748b;
-      font-weight: 400;
-      border-top: 1px solid #dee6ef;
-      padding: 2rem 0;
-      margin-top: 2.5rem;
-      transition: border-color 0.3s;
-    }
-    
-    body.dark .footer-address {
-      border-color: #334155;
-      color: #94a3b8;
-    }
-    
-    /* Sections */
-    .section-padding { padding: 4rem 0; }
-    @media (max-width: 700px) { .section-padding { padding: 3rem 0; } }
-    
-    /* Timeline */
-    .timeline-simple {
-      border-left: 3px solid #2563eb30;
-      padding-left: 1.8rem;
-      margin-left: 0.5rem;
-    }
-    
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.5s ease;
-    }
-    
-    .timeline-item.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .timeline-dot {
-      position: absolute;
-      left: -2.35rem;
-      top: 0.2rem;
-      width: 1rem;
-      height: 1rem;
-      background: #2563eb;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px #93c5fd;
-      transition: transform 0.3s;
-    }
-    
-    .timeline-item:hover .timeline-dot {
-      transform: scale(1.2);
-    }
-    
-    /* Progress Bars */
-    .progress-bg {
-      background: #e4e7eb;
-      height: 0.5rem;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    
-    body.dark .progress-bg { background: #334155; }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #2563eb, #60a5fa);
-      border-radius: 20px;
-      width: 0;
-      transition: width 1.2s ease-out;
-    }
-    
-    /* Form */
-    .form-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      transition: all 0.3s;
-      background: white;
-      color: #0b1e33;
-    }
-    
-    body.dark .form-input {
-      background: #1e293b;
-      border-color: #334155;
-      color: #f1f5f9;
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    }
-    
-    /* Scroll animations */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Back to top button */
-    #backToTop {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      background: #2563eb;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 14px rgba(37,99,235,0.4);
-      transition: all 0.3s;
-      opacity: 0;
-      visibility: hidden;
-      z-index: 999;
-      border: none;
-      cursor: pointer;
-    }
-    
-    #backToTop.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    #backToTop:hover {
-      transform: translateY(-5px);
-      background: #1d4ed8;
-    }
-    
-    /* Dark mode toggle */
-    .theme-toggle {
-      width: 50px;
-      height: 26px;
-      background: #e2e8f0;
-      border-radius: 13px;
-      position: relative;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    
-    body.dark .theme-toggle { background: #475569; }
-    
-    .theme-toggle::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
-      transition: transform 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    body.dark .theme-toggle::after {
-      transform: translateX(24px);
-      background: #fbbf24;
-    }
-    
-    /* Loading animation for skills */
-    @keyframes loadProgress {
-      from { width: 0; }
-    }
-    
-    /* Social icons hover */
-    .social-icon {
-      transition: all 0.3s;
-    }
-    
-    .social-icon:hover {
-      transform: translateY(-3px) scale(1.1);
-    }
-    
-    /* Print styles for CV */
-    @media print {
-      .no-print { display: none !important; }
-      body { background: white; color: black; }
-      .project-card { break-inside: avoid; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hassan Rahhal - Master's student in Artificial Intelligence and Applications (FPO, Ibn Zohr University). Background, skills, services and projects.">
+<title>Hassan Rahhal | Master's in AI &amp; Applications</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%232563eb'/%3E%3Cpath d='M12 10v20M28 10v20M12 20h16' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='20' cy='20' r='3.2' fill='%23fbbf24'/%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}</script>
+<style>
+body{font-family:'Inter',system-ui,sans-serif}
+.ic{width:1.2em;height:1.2em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#06b6d4);z-index:100}
+#net{position:absolute;inset:0;width:100%;height:100%}
+.grad{background:linear-gradient(90deg,#3b82f6,#8b5cf6,#06b6d4,#3b82f6);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.cursor::after{content:'|';margin-left:2px;color:#3b82f6;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.float{animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-14px)}}
+.orbit{position:absolute;inset:-18px;animation:spin 14s linear infinite}
+.orbit i{position:absolute;width:12px;height:12px;border-radius:50%;background:#fbbf24;box-shadow:0 0 14px #fbbf24}
+.orbit i:nth-child(1){top:0;left:50%}.orbit i:nth-child(2){bottom:12%;left:6%;background:#06b6d4;box-shadow:0 0 14px #06b6d4}.orbit i:nth-child(3){bottom:12%;right:6%;background:#8b5cf6;box-shadow:0 0 14px #8b5cf6}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:1rem;padding:1.6rem;transition:transform .3s,box-shadow .3s,border-color .3s}
+.dark .card{background:#1e293b;border-color:#334155}
+.card:hover{transform:translateY(-8px);box-shadow:0 24px 40px -18px rgba(59,130,246,.5);border-color:#60a5fa}
+.badge{width:3.2rem;height:3.2rem;border-radius:1rem;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;margin-bottom:1rem;background:linear-gradient(135deg,#2563eb,#8b5cf6);box-shadow:0 10px 20px -10px #6d28d9}
+.tag{display:inline-block;background:#e0e7ff;color:#1e3a8a;padding:.25rem .85rem;border-radius:999px;font-size:.8rem;font-weight:600;margin:.18rem;transition:.2s}
+.tag:hover{background:#2563eb;color:#fff;transform:scale(1.08)}.dark .tag{background:#1e3a8a;color:#dbeafe}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:3.2rem;padding:.9rem 2rem;border-radius:999px;font-weight:700;border:2px solid #1d4ed8;transition:.25s;cursor:pointer}
+.btn:hover .ic{transform:translateX(4px)}.btn .ic{transition:.25s}.btn:active{transform:scale(.97)}
+.btn-p{background:linear-gradient(90deg,#1d4ed8,#6d28d9);border-color:transparent;color:#fff;box-shadow:0 10px 24px -10px #1d4ed8}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 16px 30px -10px #6d28d9}
+.btn-o{color:#1d4ed8;background:#fff}.btn-o:hover{background:#1d4ed8;color:#fff;transform:translateY(-3px)}
+.dark .btn-o{color:#fff;background:transparent;border-color:#93c5fd}.dark .btn-o:hover{background:#2563eb;border-color:#2563eb}
+.btn-s{min-height:2.6rem;padding:.5rem 1.2rem;font-size:.9rem}
+.btn:focus-visible,.nav a:focus-visible,#top:focus-visible,#theme:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:3px}
+.nav a{position:relative;font-weight:600}.nav a.act{color:#2563eb}.dark .nav a.act{color:#93c5fd}
+.nav a:last-child{background:#1d4ed8;color:#fff!important;padding:.5rem 1.2rem;border-radius:999px;font-weight:700}.nav a:last-child:hover{background:#6d28d9}
+#theme{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border-radius:999px;font-weight:600;font-size:.85rem;background:#fff;border:2px solid #cbd5e1;color:#0f172a;transition:.2s}
+.dark #theme{background:#0f172a;border-color:#475569;color:#fff}#theme:hover{border-color:#2563eb}
+.moon{display:block}.sun{display:none}.dark .moon{display:none}.dark .sun{display:block}
+.sec h2{font-size:2.2rem;font-weight:800;text-align:center}
+.eyebrow{display:block;text-align:center;font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2563eb;margin-bottom:.4rem}
+.sub{text-align:center;color:#64748b;margin:.7rem auto 2.5rem;max-width:36rem}.dark .sub{color:#94a3b8}
+.rule{width:64px;height:4px;border-radius:4px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);margin:.7rem auto 0;transform:scaleX(0);transition:transform .8s .2s}
+.on .rule{transform:scaleX(1)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s,transform .7s}.reveal.on{opacity:1;transform:none}
+.tl{position:relative;padding-left:2.2rem}
+.tl::before{content:'';position:absolute;left:.5rem;top:0;bottom:0;width:3px;background:linear-gradient(#3b82f6,#8b5cf6);transform-origin:top;transform:scaleY(0);transition:transform 1.6s}
+.tl.on::before{transform:scaleY(1)}
+.tl>div{position:relative;margin-bottom:2rem}
+.tl>div::before{content:'';position:absolute;left:-2.2rem;top:.3rem;width:1.1rem;height:1.1rem;border-radius:50%;background:#fff;border:4px solid #3b82f6;transition:.3s}
+.dark .tl>div::before{background:#0f172a}.tl>div:hover::before{transform:scale(1.4);background:#3b82f6}
+.proj dt{font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#2563eb;margin-top:.6rem}
+.proj dd{font-size:.9rem;color:#475569}.dark .proj dd{color:#cbd5e1}
+input,textarea{width:100%;padding:.8rem 1rem;border:2px solid #cbd5e1;border-radius:.75rem;background:transparent;transition:.2s}
+.dark input,.dark textarea{border-color:#475569}input:focus,textarea:focus{border-color:#2563eb}
+#top{position:fixed;right:1.5rem;bottom:1.5rem;width:3.2rem;height:3.2rem;border-radius:50%;background:#1d4ed8;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s;z-index:60;box-shadow:0 10px 24px -8px #1d4ed8}
+#top.show{opacity:1;visibility:visible}#top:hover{background:#6d28d9;transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media print{#hdr,#top,#progress,#net{display:none}.reveal{opacity:1;transform:none}}
+</style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 overflow-x-hidden">
+<div id="progress"></div>
 
-  <!-- Dark Mode Toggle -->
-  <button id="themeToggle" class="no-print fixed top-4 right-4 z-50 p-2 rounded-full bg-white dark:bg-slate-800 shadow-lg" aria-label="Toggle dark mode">
-    <div class="theme-toggle"></div>
-  </button>
+<!-- Original symbol set -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+ <symbol id="logo" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="url(#lg)"/><path d="M12 10v20M28 10v20M12 20h16" stroke="#fff" stroke-width="3" stroke-linecap="round"/><g fill="#fff"><circle cx="12" cy="10" r="3"/><circle cx="28" cy="10" r="3"/><circle cx="12" cy="30" r="3"/><circle cx="28" cy="30" r="3"/></g><circle cx="20" cy="20" r="3.4" fill="#fbbf24"/></symbol>
+ <symbol id="i-ai" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2.5"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3.2 3.2M7 17l3.2-3.2M14 10.3l3.2-3.2M14 13.7l3.2 3.2"/></symbol>
+ <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+ <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/></symbol>
+ <symbol id="i-lang" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+ <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+ <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></symbol>
+ <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+ <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+ <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+ <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+ <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+ <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+ <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></symbol>
+ <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></symbol>
+ <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19zM14 6l4 4"/></symbol>
+</svg>
 
-  <!-- HEADER -->
-  <header class="header-border">
-    <div class="container-custom flex flex-wrap items-center justify-between">
-      <a href="#accueil" class="logo-name">RAHHAL HASSAN</a>
-      
-      <!-- Navigation Desktop -->
-      <nav class="hidden md:flex gap-8 items-center">
-        <a href="#accueil" class="nav-link-img">Accueil</a>
-        <a href="#profil" class="nav-link-img">Profil</a>
-        <a href="#projets" class="nav-link-img">Projets</a>
-        <a href="#formation" class="nav-link-img">Formation</a>
-        <a href="#competences" class="nav-link-img">Compétences</a>
-        <a href="#contact" class="nav-link-img">Contact</a>
-      </nav>
-      
-      <!-- Mobile Menu Button -->
-      <button class="md:hidden text-2xl text-gray-600 dark:text-gray-300" id="menuBtn" aria-label="Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <nav class="container-custom md:hidden hidden mt-3 pb-2" id="mobileMenu">
-      <div class="flex flex-col space-y-3 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg">
-        <a href="#accueil" class="nav-link-img py-2" onclick="closeMobileMenu()">🏠 Accueil</a>
-        <a href="#profil" class="nav-link-img py-2" onclick="closeMobileMenu()">👤 Profil</a>
-        <a href="#projets" class="nav-link-img py-2" onclick="closeMobileMenu()">💻 Projets</a>
-        <a href="#formation" class="nav-link-img py-2" onclick="closeMobileMenu()">🎓 Formation</a>
-        <a href="#competences" class="nav-link-img py-2" onclick="closeMobileMenu()">⚡ Compétences</a>
-        <a href="#contact" class="nav-link-img py-2" onclick="closeMobileMenu()">📧 Contact</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section id="accueil" class="pt-14 pb-8">
-    <div class="container-custom">
-      <div class="flex flex-col md:flex-row items-center gap-12">
-        <!-- Text Content -->
-        <div class="flex-1 text-center md:text-left animate-on-scroll">
-          <h1 class="hero-name">Bonjour, je suis hassan rahhal <span class="text-blue-600 typing-cursor" id="typingText"></span></h1>
-          <p class="text-2xl font-medium text-gray-700 dark:text-gray-300 mt-2">Étudiant en Intelligence Artificielle |</p>
-          <p class="speciality-badge mt-1">Développeur Passionné</p>
-          <p class="text-xl text-gray-700 dark:text-gray-300 mt-2">Spécialisé en Développement Web & IA</p>
-          <p class="text-gray-600 dark:text-gray-400 max-w-xl mt-5 text-lg leading-relaxed">
-            Passionné par l'IA, le machine learning et le développement web. Je crée des solutions innovantes combinant intelligence artificielle et technologies web modernes.
-          </p>
-          
-          <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
-            <a href="#contact" class="btn-bleu">
-              <i class="fas fa-paper-plane"></i> Contactez-moi
-            </a>
-            <button onclick="downloadCV()" class="btn-outline-cv">
-              <i class="fas fa-download"></i> Télécharger CV
-            </button>
-          </div>
-          
-          <!-- Stats rapides -->
-          <div class="flex gap-6 mt-10 justify-center md:justify-start">
-            <div class="text-center">
-              <span class="text-3xl font-bold text-blue-600 counter" data-target="15">0</span>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Projets</p>
-            </div>
-            <div class="text-center">
-              <span class="text-3xl font-bold text-blue-600 counter" data-target="3">0</span>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Ans d'étude</p>
-            </div>
-            <div class="text-center">
-              <span class="text-3xl font-bold text-blue-600 counter" data-target="8">0</span>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Technologies</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Profile Photo - VOTRE IMAGE -->
-        <div class="flex-1 flex justify-center animate-on-scroll">
-          <div class="relative">
-            <img src="tt.jpg" 
-                 alt="Hassan Rahhal" 
-                 class="profile-img"
-                 onerror="this.src='https://ui-avatars.com/api/?name=Hassan+R&size=300&background=2563eb&color=fff&font-size=1.8&rounded=true'">
-            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-slate-800 flex items-center justify-center" title="Disponible">
-              <span class="text-white text-xs">✓</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="w-full h-px bg-gray-200 dark:bg-slate-700 my-12"></div>
-    </div>
-  </section>
-
-  <!-- PROJETS SECTION -->
-  <section id="projets" class="section-padding bg-white dark:bg-slate-900">
-    <div class="container-custom">
-      <h2 class="text-3xl md:text-4xl font-bold text-center mb-3 animate-on-scroll">Projets réalisés</h2>
-      <p class="text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 animate-on-scroll">Une sélection de mes projets combinant IA et développement web</p>
-      
-      <!-- Filter Buttons -->
-      <div class="flex flex-wrap justify-center gap-2 mb-8 animate-on-scroll">
-        <button class="filter-btn active" data-filter="all">Tous</button>
-        <button class="filter-btn" data-filter="ia">🤖 IA</button>
-        <button class="filter-btn" data-filter="web">🌐 Web</button>
-        <button class="filter-btn" data-filter="game">🎮 Jeux</button>
-      </div>
-
-      <!-- Projects Grid -->
-      <div class="projects-grid">
-        
-        <!-- Project 1: Countdown Timer -->
-        <article class="project-card animate-on-scroll" data-category="web">
-          <div class="h-44 bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
-            <i class="fas fa-clock text-white text-5xl"></i>
-          </div>
-          <div class="p-5 flex-grow">
-            <h3 class="text-xl font-bold mb-2">Countdown Timer</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de compte à rebours avec notifications push et persistance des données.</p>
-            <div class="mb-4">
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">LocalStorage</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Countdown Timer')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project 2: Quiz App -->
-        <article class="project-card animate-on-scroll" data-category="web">
-          <div class="h-44 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-            <i class="fas fa-question-circle text-white text-5xl"></i>
-          </div>
-          <div class="p-5">
-            <h3 class="text-xl font-bold mb-2">Quiz App</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de quiz interactive avec API externe et système de scoring.</p>
-            <div class="mb-4">
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">REST API</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Quiz App')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project 3: Drawing Canvas -->
-        <article class="project-card animate-on-scroll" data-category="web">
-          <div class="h-44 bg-gradient-to-r from-indigo-500 to-blue-600 flex items-center justify-center">
-            <i class="fas fa-paint-brush text-white text-5xl"></i>
-          </div>
-          <div class="p-5">
-            <h3 class="text-xl font-bold mb-2">Drawing Canvas</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Application de dessin collaboratif en temps réel avec export d'image.</p>
-            <div class="mb-4">
-              <span class="skill-tag">Canvas API</span>
-              <span class="skill-tag">Fabric.js</span>
-              <span class="skill-tag">WebSocket</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Drawing Canvas')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project 4: Car Game -->
-        <article class="project-card animate-on-scroll" data-category="game">
-          <div class="h-44 bg-gradient-to-r from-red-500 to-orange-500 flex items-center justify-center">
-            <i class="fas fa-car text-white text-5xl"></i>
-          </div>
-          <div class="p-5">
-            <h3 class="text-xl font-bold mb-2">Simple Car Game</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Jeu de course arcade avec détection de collisions et système de score.</p>
-            <div class="mb-4">
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Canvas</span>
-              <span class="skill-tag">Game Loop</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Car Game')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Jouer</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project 5: IA Image Classifier -->
-        <article class="project-card animate-on-scroll" data-category="ia">
-          <div class="h-44 bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center">
-            <i class="fas fa-brain text-white text-5xl"></i>
-          </div>
-          <div class="p-5">
-            <h3 class="text-xl font-bold mb-2">Image Classifier IA</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Classification d'images avec TensorFlow.js directement dans le navigateur.</p>
-            <div class="mb-4">
-              <span class="skill-tag">TensorFlow.js</span>
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">Computer Vision</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Image Classifier')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project 6: Chatbot NLP -->
-        <article class="project-card animate-on-scroll" data-category="ia">
-          <div class="h-44 bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center">
-            <i class="fas fa-robot text-white text-5xl"></i>
-          </div>
-          <div class="p-5">
-            <h3 class="text-xl font-bold mb-2">Chatbot NLP</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-3">Assistant conversationnel avec traitement du langage naturel et intégration API.</p>
-            <div class="mb-4">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">NLTK</span>
-              <span class="skill-tag">FastAPI</span>
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a href="#" class="btn-bleu text-sm py-2 px-3 flex-1 text-center" onclick="showProjectModal('Chatbot NLP')"><i class="fab fa-github mr-1"></i>Code</a>
-              <a href="#" class="btn-outline-cv text-sm py-2 px-3 flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Démo</a>
-            </div>
-          </div>
-        </article>
-        
-      </div>
-    </div>
-  </section>
-
-  <!-- PROFIL SECTION -->
-  <section id="profil" class="py-12 bg-gray-50 dark:bg-slate-800">
-    <div class="container-custom">
-      <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">À propos de moi</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
-          <i class="fas fa-graduation-cap text-3xl text-blue-600 mb-3"></i>
-          <h3 class="text-xl font-bold mb-2">Formation</h3>
-          <p class="text-gray-600 dark:text-gray-300">Licence en Intelligence Artificielle (S6) – Université Ibn Zohr. Spécialisation Deep Learning & Computer Vision.</p>
-        </div>
-        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
-          <i class="fas fa-code text-3xl text-pink-500 mb-3"></i>
-          <h3 class="text-xl font-bold mb-2">Expertise</h3>
-          <p class="text-gray-600 dark:text-gray-300">Full Stack (React, Node.js) et modèles IA (TensorFlow, PyTorch, Scikit-learn).</p>
-        </div>
-        <div class="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm animate-on-scroll hover:shadow-md transition">
-          <i class="fas fa-heart text-3xl text-green-500 mb-3"></i>
-          <h3 class="text-xl font-bold mb-2">Passions</h3>
-          <p class="text-gray-600 dark:text-gray-300">IA éthique, traitement d'images, NLP, UI/UX design et open source.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPÉTENCES SECTION -->
-  <section id="competences" class="py-12 bg-white dark:bg-slate-900">
-    <div class="container-custom max-w-4xl">
-      <h2 class="text-3xl font-bold text-center mb-8 animate-on-scroll">Compétences & Langues</h2>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Technical Skills -->
-        <div class="space-y-4 animate-on-scroll">
-          <h3 class="font-semibold text-lg mb-3 text-blue-600 dark:text-blue-400">💻 Techniques</h3>
-          <div><p class="font-medium mb-1">Python <span class="float-right text-blue-600 dark:text-blue-400">90%</span></p><div class="progress-bg"><div class="progress-fill" data-width="90%"></div></div></div>
-          <div><p class="font-medium mb-1">JavaScript/TypeScript <span class="float-right text-blue-600 dark:text-blue-400">85%</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
-          <div><p class="font-medium mb-1">TensorFlow/PyTorch <span class="float-right text-blue-600 dark:text-blue-400">85%</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
-          <div><p class="font-medium mb-1">Computer Vision <span class="float-right text-blue-600 dark:text-blue-400">80%</span></p><div class="progress-bg"><div class="progress-fill" data-width="80%"></div></div></div>
-          <div><p class="font-medium mb-1">React/Node.js <span class="float-right text-blue-600 dark:text-blue-400">80%</span></p><div class="progress-bg"><div class="progress-fill" data-width="80%"></div></div></div>
-        </div>
-        
-        <!-- Languages & Soft Skills -->
-        <div class="space-y-4 animate-on-scroll">
-          <h3 class="font-semibold text-lg mb-3 text-green-600 dark:text-green-400">🌍 Langues & Soft Skills</h3>
-          <div><p class="font-medium mb-1">Français <span class="float-right text-blue-600 dark:text-blue-400">C1</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
-          <div><p class="font-medium mb-1">Anglais <span class="float-right text-blue-600 dark:text-blue-400">B2</span></p><div class="progress-bg"><div class="progress-fill" data-width="75%"></div></div></div>
-          <div><p class="font-medium mb-1">Arabe <span class="float-right text-blue-600 dark:text-blue-400">Natif</span></p><div class="progress-bg"><div class="progress-fill" data-width="100%"></div></div></div>
-          <div><p class="font-medium mb-1">Travail d'équipe <span class="float-right text-blue-600 dark:text-blue-400">★★★★☆</span></p><div class="progress-bg"><div class="progress-fill" data-width="85%"></div></div></div>
-          <div><p class="font-medium mb-1">Résolution de problèmes <span class="float-right text-blue-600 dark:text-blue-400">★★★★★</span></p><div class="progress-bg"><div class="progress-fill" data-width="95%"></div></div></div>
-        </div>
-      </div>
-      
-      <!-- Tech Stack Tags -->
-      <div class="flex flex-wrap justify-center gap-2 mt-10 animate-on-scroll">
-        <span class="skill-tag">React</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span>
-        <span class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span><span class="skill-tag">OpenCV</span>
-        <span class="skill-tag">Docker</span><span class="skill-tag">MongoDB</span><span class="skill-tag">PostgreSQL</span>
-        <span class="skill-tag">Tailwind</span><span class="skill-tag">Git</span><span class="skill-tag">FastAPI</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- FORMATION TIMELINE -->
-  <section id="formation" class="py-12 bg-gray-50 dark:bg-slate-800">
-    <div class="container-custom max-w-3xl">
-      <h2 class="text-3xl font-bold text-center mb-10 animate-on-scroll">Expérience & Formation</h2>
-      <div class="timeline-simple">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2025 – 2026</span>
-          <h3 class="text-xl font-bold">Licence en Intelligence Artificielle</h3>
-          <p class="text-gray-600 dark:text-gray-400">Université Ibn Zohr, FPO Ouarzazate</p>
-          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Deep Learning • Computer Vision • NLP • MLOps</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2024</span>
-          <h3 class="text-xl font-bold">Stage PFE - Développement IA</h3>
-          <p class="text-gray-600 dark:text-gray-400">Entreprise Tech, Agadir</p>
-          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Création d'un modèle de classification d'images avec TensorFlow</p>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <span class="text-blue-600 dark:text-blue-400 font-semibold text-sm">2022 – 2023</span>
-          <h3 class="text-xl font-bold">Baccalauréat Sciences Physiques</h3>
-          <p class="text-gray-600 dark:text-gray-400">Lycée Idriss Al Oual, Agdz</p>
-          <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Mention Bien • Option Sciences</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION - VOTRE EMAIL -->
-  <section id="contact" class="py-12 bg-white dark:bg-slate-900">
-    <div class="container-custom max-w-5xl">
-      <h2 class="text-3xl font-bold text-center mb-2 animate-on-scroll">Contactez-moi</h2>
-      <p class="text-center text-gray-600 dark:text-gray-400 mb-10 animate-on-scroll">N'hésitez pas à me contacter pour un projet ou une opportunité</p>
-      
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Contact Info - VOTRE EMAIL -->
-        <div class="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl animate-on-scroll">
-          <div class="space-y-5">
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                <a href="mailto:hassanrahhal194@gmail.com" class="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">hassanrahhal194@gmail.com</a>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                <i class="fas fa-phone-alt"></i>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Téléphone</p>
-                <a href="tel:+212600000000" class="font-medium hover:text-blue-600 dark:hover:text-blue-400 transition">+212 659560209</a>
-              </div>
-            </div>
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-green-400 rounded-xl flex items-center justify-center text-white flex-shrink-0">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Localisation</p>
-                <span class="font-medium">Maroc 🇲🇦</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Social Links -->
-          <div class="mt-8 flex gap-3">
-            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-gray-900 dark:hover:bg-blue-600 hover:text-white transition" aria-label="GitHub">
-              <i class="fab fa-github"></i>
-            </a>
-            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" class="social-icon w-10 h-10 bg-gray-200 dark:bg-slate-700 rounded-full flex items-center justify-center hover:bg-sky-500 hover:text-white transition" aria-label="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Contact Form -->
-        <div class="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl animate-on-scroll">
-          <h3 class="text-2xl font-bold mb-4">Envoyer un message</h3>
-          <form id="contactForm" class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium mb-1" for="name">hassan rahhal *</label>
-              <input type="text" id="name" name="name" placeholder="Votre nom" class="form-input" required>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-1" for="email">hassanrahhal194@gmail.com*</label>
-              <input type="email" id="email" name="email" placeholder="votre@email.com" class="form-input" required>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-1" for="subject">Sujet</label>
-              <input type="text" id="subject" name="subject" placeholder="Sujet du message" class="form-input">
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-1" for="message">Message *</label>
-              <textarea id="message" name="message" rows="4" placeholder="Votre message..." class="form-input" required></textarea>
-            </div>
-            <button type="submit" class="btn-bleu w-full justify-center">
-              <i class="fas fa-paper-plane"></i> Envoyer le message
-            </button>
-            <p id="formStatus" class="text-center text-sm mt-2 hidden"></p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer-address">
-    <div class="container-custom flex flex-col sm:flex-row justify-between items-center gap-3">
-      <span class="text-gray-500 dark:text-gray-400">© 2026 Hassan Rahhal</span>
-      <span class="font-medium text-gray-700 dark:text-gray-300"></span>
-      <span class="text-gray-400"><i class="fa-regular fa-heart"></i></span>
-    </div>
-  </footer>
-
-  <!-- Back to Top Button -->
-  <button id="backToTop" aria-label="Retour en haut">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-
-  <!-- Project Modal -->
-  <div id="projectModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4" onclick="closeModal(event)">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl transform transition-all" onclick="event.stopPropagation()">
-      <div class="flex justify-between items-start mb-4">
-        <h3 id="modalTitle" class="text-2xl font-bold"></h3>
-        <button onclick="closeModalBtn()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-2xl">&times;</button>
-      </div>
-      <p id="modalDesc" class="text-gray-600 dark:text-gray-400 mb-4"></p>
-      <div id="modalTech" class="flex flex-wrap gap-2 mb-6"></div>
-      <div class="flex gap-3">
-        <a href="#" class="btn-bleu flex-1 text-center"><i class="fab fa-github mr-1"></i>Voir le code</a>
-        <a href="#" class="btn-outline-cv flex-1 text-center"><i class="fas fa-external-link-alt mr-1"></i>Voir la démo</a>
-      </div>
-    </div>
+<header id="hdr" class="fixed top-0 inset-x-0 z-50 transition-all">
+ <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+  <a href="#home" class="flex items-center gap-2 font-extrabold text-lg"><svg class="w-9 h-9"><use href="#logo"/></svg><span class="grad">Hassan Rahhal</span></a>
+  <nav class="nav hidden lg:flex gap-7 items-center text-sm">
+   <a href="#home">Home</a><a href="#about">About</a><a href="#background">Background</a><a href="#skills">Skills</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  </nav>
+  <div class="flex items-center gap-3">
+   <button id="theme" aria-label="Toggle night / day mode" title="Toggle night / day mode"><svg class="ic moon"><use href="#i-moon"/></svg><svg class="ic sun"><use href="#i-sun"/></svg><span class="hidden sm:inline" id="themeLabel">Night mode</span></button>
+   <button id="burger" class="lg:hidden w-11 h-11 rounded-full border-2 border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-800 text-lg" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
   </div>
+ </div>
+ <nav id="mobile" class="nav hidden lg:hidden mx-5 mb-3 p-4 rounded-2xl bg-white dark:bg-slate-800 shadow-xl flex flex-col gap-3 text-sm">
+  <a href="#home">Home</a><a href="#about">About</a><a href="#background">Background</a><a href="#skills">Skills</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#contact" class="text-center">Contact</a>
+ </nav>
 
-  <!-- JavaScript -->
-  <script>
-    // ===== DARK MODE TOGGLE =====
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    
-    const savedTheme = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-      html.classList.add('dark');
-    }
-    
-    themeToggle.addEventListener('click', () => {
-      html.classList.toggle('dark');
-      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-    });
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("wUCq6h4JTEM0ldJTS");
+   })();
+</script>
 
-    // ===== MOBILE MENU =====
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    menuBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
-      mobileMenu.classList.toggle('hidden');
-    });
-    
-    function closeMobileMenu() {
-      mobileMenu?.classList.add('hidden');
-    }
-    
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu?.contains(e.target) && !menuBtn?.contains(e.target)) {
-        mobileMenu?.classList.add('hidden');
-      }
-    });
+</header>
 
-    // ===== TYPING EFFECT =====
-    const typingTexts = ['Hassan', 'un développeur IA', 'un passionné de tech', 'votre futur collaborateur'];
-    let textIndex = 0, charIndex = 0, isDeleting = false;
-    const typingElement = document.getElementById('typingText');
-    
-    function typeEffect() {
-      const currentText = typingTexts[textIndex];
-      
-      if (isDeleting) {
-        typingElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-      } else {
-        typingElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-      }
-      
-      let speed = isDeleting ? 40 : 80;
-      
-      if (!isDeleting && charIndex === currentText.length) {
-        speed = 2000;
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % typingTexts.length;
-        speed = 500;
-      }
-      
-      setTimeout(typeEffect, speed);
-    }
-    typeEffect();
+<!-- HOME -->
+<section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+ <canvas id="net"></canvas>
+ <div class="relative max-w-6xl mx-auto px-5 pt-28 pb-16 flex flex-col md:flex-row items-center gap-12 w-full">
+  <div class="flex-1 text-center md:text-left reveal">
+   <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100"><span class="w-2 h-2 rounded-full bg-green-500"></span>Master's in AI &amp; Applications — FPO</span>
+   <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mt-5">Hello, I'm<br><span class="grad">Hassan Rahhal</span></h1>
+   <p class="text-xl md:text-2xl font-semibold mt-4 h-9"><span id="typed" class="cursor"></span></p>
+   <p class="mt-4 max-w-xl text-slate-600 dark:text-slate-300 leading-relaxed text-lg">I turn ideas into reliable software and AI solutions. Master's student at the Faculty of Multidisciplinary Studies of Ouarzazate, Ibn Zohr University.</p>
+   <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
+    <a href="#contact" class="btn btn-p">Let's collaborate <svg class="ic"><use href="#i-arrow"/></svg></a>
+    <a href="cv-hassan-rahhal.pdf" download class="btn btn-o"><svg class="ic"><use href="#i-dl"/></svg> Download CV</a>
+   </div>
+  </div>
+  <div class="flex-1 flex justify-center reveal">
+   <div class="relative float w-64 h-64 md:w-72 md:h-72">
+    <div class="orbit"><i></i><i></i><i></i></div>
+    <!-- Photo: replace the symbol below with <img src="photo.jpg" alt="Hassan Rahhal" class="w-full h-full rounded-full object-cover border-4 border-white dark:border-slate-900"> -->
+    <img src="https://raw.githubusercontent.com/hassanrahhal2000/myportfolio/main/tt.jpg"
+     alt="Hassan Rahhal"
+     class="w-full h-full rounded-full object-cover border-4 border-white dark:border-slate-900 drop-shadow-2xl"><use href="#logo"/></svg>
+   </div>
+  </div>
+ </div>
+ <a href="#about" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-blue-600 dark:text-blue-300 float" aria-label="Scroll down"><svg class="ic w-8 h-8"><use href="#i-down"/></svg></a>
+</section>
 
-    // ===== SCROLL ANIMATIONS =====
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          
-          if (entry.target.querySelector('.progress-fill')) {
-            entry.target.querySelectorAll('.progress-fill').forEach(bar => {
-              bar.style.width = bar.dataset.width;
-            });
-          }
-          
-          if (entry.target.querySelector('.counter')) {
-            entry.target.querySelectorAll('.counter').forEach(counter => {
-              animateCounter(counter);
-            });
-          }
-          
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.animate-on-scroll, .timeline-item').forEach(el => {
-      observer.observe(el);
-    });
+<!-- ABOUT -->
+<section id="about" class="sec py-20 bg-white dark:bg-slate-800">
+ <div class="max-w-5xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Who I am</span><h2>About <span class="grad">Me</span></h2><div class="rule"></div></div>
+  <p class="reveal text-center max-w-3xl mx-auto mt-8 text-lg leading-relaxed text-slate-600 dark:text-slate-300">I am a Master's student in Artificial Intelligence and Applications, building on a bachelor's degree in AI and Software Engineering. I care about rigorous methods, clean code and clear scientific writing, from neural networks and image processing to full-stack Python development.</p>
+  <div class="grid md:grid-cols-3 gap-6 mt-10">
+   <div class="card reveal"><div class="badge"><svg class="ic"><use href="#i-cap"/></svg></div><h3 class="font-bold mb-1">Institution</h3><p class="text-sm text-slate-600 dark:text-slate-400">Faculty of Multidisciplinary Studies of Ouarzazate (FPO), Ibn Zohr University</p></div>
+   <div class="card reveal" style="transition-delay:.1s"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h3 class="font-bold mb-1">Focus</h3><p class="text-sm text-slate-600 dark:text-slate-400">Applied machine learning, computer vision and image processing</p></div>
+   <div class="card reveal" style="transition-delay:.2s"><div class="badge"><svg class="ic"><use href="#i-pin"/></svg></div><h3 class="font-bold mb-1">Location</h3><p class="text-sm text-slate-600 dark:text-slate-400">Ouarzazate, Morocco — open to remote collaboration</p></div>
+  </div>
+ </div>
+</section>
 
-    // ===== COUNTER ANIMATION =====
-    function animateCounter(el) {
-      const target = parseInt(el.dataset.target);
-      let count = 0;
-      const increment = Math.ceil(target / 50);
-      const timer = setInterval(() => {
-        count += increment;
-        if (count >= target) {
-          el.textContent = target + '+';
-          clearInterval(timer);
-        } else {
-          el.textContent = count;
-        }
-      }, 30);
-    }
+<!-- BACKGROUND -->
+<section id="background" class="sec py-20">
+ <div class="max-w-3xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Education</span><h2>University <span class="grad">Background</span></h2><div class="rule"></div><p class="sub">From bachelor's to master's, focused on AI and software engineering.</p></div>
+  <div class="tl reveal">
+   <div><span class="text-sm font-bold text-blue-600 dark:text-blue-300">20XX – present</span><h3 class="text-xl font-bold">Master's in Artificial Intelligence and Applications</h3><p class="text-slate-600 dark:text-slate-400">FPO — Ibn Zohr University, Ouarzazate</p><p class="text-sm text-slate-500 mt-1">Modules: [to be completed]</p></div>
+   <div><span class="text-sm font-bold text-blue-600 dark:text-blue-300">20XX – 2026</span><h3 class="text-xl font-bold">Bachelor's in Artificial Intelligence and  Software Engineering</h3><p class="text-slate-600 dark:text-slate-400">FPO — Ibn Zohr University, Ouarzazate</p><p class="text-sm text-slate-500 mt-1">Signal and image processing • Neural networks • Applied ML projects</p></div>
+   <div><span class="text-sm font-bold text-blue-600 dark:text-blue-300">2023</span><h3 class="text-xl font-bold">Baccalaureate — Physical Sciences</h3><p class="text-slate-600 dark:text-slate-400">Idriss II High School, Agdz</p></div>
+  </div>
+ </div>
+</section>
 
-    // ===== PROJECT FILTER =====
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+<!-- SKILLS -->
+<section id="skills" class="sec py-20 bg-white dark:bg-slate-800">
+ <div class="max-w-6xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Expertise</span><h2>My <span class="grad">Skills</span></h2><div class="rule"></div><p class="sub">A solid theoretical foundation combined with modern development tools.</p></div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+   <div class="card reveal"><div class="badge"><svg class="ic"><use href="#i-ai"/></svg></div><h3 class="font-bold mb-2">Artificial Intelligence</h3><span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Neural Networks</span><span class="tag">Computer Vision</span><span class="tag">Image Processing</span></div>
+   <div class="card reveal" style="transition-delay:.1s"><div class="badge"><svg class="ic"><use href="#i-code"/></svg></div><h3 class="font-bold mb-2">Development</h3><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">HTML / CSS</span><span class="tag">Git</span><span class="tag">Full-stack</span></div>
+   <div class="card reveal" style="transition-delay:.2s"><div class="badge"><svg class="ic"><use href="#i-doc"/></svg></div><h3 class="font-bold mb-2">Scientific Writing</h3><span class="tag">LaTeX</span><span class="tag">Academic Reports</span><span class="tag">Documentation</span></div>
+   <div class="card reveal" style="transition-delay:.3s"><div class="badge"><svg class="ic"><use href="#i-lang"/></svg></div><h3 class="font-bold mb-2">Languages</h3><span class="tag">Arabic — native</span><span class="tag">French — [level]</span><span class="tag">English — [level]</span><span class="tag">German — learning</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="sec py-20">
+ <div class="max-w-6xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Work with me</span><h2>How I Can <span class="grad">Help You</span></h2><div class="rule"></div><p class="sub">Projects suited to my level of training. Adjust this list to what you want to offer.</p></div>
+  <div class="grid md:grid-cols-3 gap-6">
+   <div class="card reveal"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h3 class="font-bold text-lg mb-2">AI Solutions</h3><p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Classification prototypes, computer vision and machine learning applied to your needs.</p><a href="#contact" class="btn btn-o btn-s">Request <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+   <div class="card reveal" style="transition-delay:.1s"><div class="badge"><svg class="ic"><use href="#i-code"/></svg></div><h3 class="font-bold text-lg mb-2">Python &amp; Web Development</h3><p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Clean, documented and easy-to-maintain applications and websites.</p><a href="#contact" class="btn btn-o btn-s">Request <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+   <div class="card reveal" style="transition-delay:.2s"><div class="badge"><svg class="ic"><use href="#i-pen"/></svg></div><h3 class="font-bold text-lg mb-2">Technical Writing</h3><p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Reports, teaching materials and scientific documents typeset with LaTeX.</p><a href="#contact" class="btn btn-o btn-s">Request <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+  </div>
+ </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec py-20 bg-white dark:bg-slate-800">
+ <div class="max-w-6xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Portfolio</span><h2>Academic <span class="grad">Projects</span></h2><div class="rule"></div><p class="sub">Replace the brackets with your real projects: context, objectives, method, tools and results.</p></div>
+  <div class="grid md:grid-cols-3 gap-6">
+   <article class="card proj reveal"><span class="tag">Computer Vision</span><span class="tag">20XX</span><h3 class="text-lg font-bold mt-2">[Project title 1]</h3>
+    <dl><dt>Objective</dt><dd>[Problem and measurable goal]</dd><dt>Method</dt><dd>[Data, model, evaluation]</dd><dt>Tools</dt><dd>Python, [libraries]</dd><dt>Results</dt><dd>[Accuracy, F1-score…]</dd></dl>
+    <div class="flex gap-3 mt-5"><a href="#" class="btn btn-p btn-s"><i class="fab fa-github"></i> Code</a><a href="#" class="btn btn-o btn-s"><svg class="ic"><use href="#i-doc"/></svg> Report</a></div></article>
+   <article class="card proj reveal" style="transition-delay:.1s"><span class="tag">Image Processing</span><span class="tag">20XX</span><h3 class="text-lg font-bold mt-2">[Project title 2]</h3>
+    <dl><dt>Objective</dt><dd>[Problem and measurable goal]</dd><dt>Method</dt><dd>[Techniques used]</dd><dt>Tools</dt><dd>Python, [libraries]</dd><dt>Results</dt><dd>[Outcome]</dd></dl>
+    <div class="flex gap-3 mt-5"><a href="#" class="btn btn-p btn-s"><i class="fab fa-github"></i> Code</a><a href="#" class="btn btn-o btn-s"><svg class="ic"><use href="#i-doc"/></svg> Report</a></div></article>
+   <article class="card proj reveal" style="transition-delay:.2s"><span class="tag">Web</span><span class="tag">20XX</span><h3 class="text-lg font-bold mt-2">[Project title 3]</h3>
+    <dl><dt>Objective</dt><dd>[Features targeted]</dd><dt>Method</dt><dd>[Architecture]</dd><dt>Tools</dt><dd>Python, JavaScript</dd><dt>Results</dt><dd>[Deployed app]</dd></dl>
+    <div class="flex gap-3 mt-5"><a href="#" class="btn btn-p btn-s"><i class="fab fa-github"></i> Code</a><a href="#" class="btn btn-o btn-s"><svg class="ic"><use href="#i-arrow"/></svg> Demo</a></div></article>
+  </div>
+ </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec py-20">
+ <div class="max-w-5xl mx-auto px-5">
+  <div class="reveal"><span class="eyebrow">Get in touch</span><h2>Let's Work <span class="grad">Together</span></h2><div class="rule"></div><p class="sub">A project, a collaboration or a question? Write to me and I will get back to you.</p></div>
+  <div class="grid md:grid-cols-2 gap-8">
+   <div class="card reveal space-y-5">
+    <div class="flex items-center gap-3"><span class="badge !mb-0 !w-11 !h-11 !text-lg"><svg class="ic"><use href="#i-mail"/></svg></span><a href="mailto:your.email@example.com" class="font-semibold hover:text-blue-600">hassanrahhal194@gmail.com</a></div>
+    <div class="flex items-center gap-3"><span class="badge !mb-0 !w-11 !h-11 !text-lg"><svg class="ic"><use href="#i-pin"/></svg></span><span class="font-semibold">Ouarzazate, Morocco</span></div>
+<div class="flex flex-wrap gap-3 pt-2">
+    <a href="https://github.com/hassanrahhal2000"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="btn btn-o btn-s">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <a href="#"
+       class="btn btn-o btn-s">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+    </a>
+</div>   </div>
+  <form id="contact-form">
+    <input type="text" name="title" placeholder="Titre / Sujet" required>
+    <input type="text" name="name" placeholder="Votre Nom" required>
+    <input type="email" name="email" placeholder="Votre Email" required>
+    <textarea name="message" placeholder="Votre message" required></textarea>
     
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const filter = btn.dataset.filter;
-        
-        projectCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = 'flex';
-            setTimeout(() => card.style.opacity = '1', 10);
-          } else {
-            card.style.opacity = '0';
-            setTimeout(() => card.style.display = 'none', 300);
-          }
+    <!-- Champ caché pour l'heure si vous souhaitez la passer au template -->
+    <input type="hidden" name="time" id="time-input">
+
+    <button type="submit">Envoyer</button>
+</form>
+  </div>
+ </div>
+</section>
+
+<footer class="py-8 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-700">© 2026 Hassan Rahhal — Master's in AI and Applications, FPO, Ibn Zohr University</footer>
+<a href="#home" id="top" aria-label="Back to top" title="Back to top"><svg class="ic"><use href="#i-up"/></svg></a>
+
+<script>
+const $=s=>document.querySelector(s),root=document.documentElement,EMAIL='your.email@example.com';
+function label(){$('#themeLabel').textContent=root.classList.contains('dark')?'Day mode':'Night mode'}
+try{const t=localStorage.getItem('t');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))root.classList.add('dark')}catch(e){}label();
+$('#theme').onclick=()=>{root.classList.toggle('dark');label();try{localStorage.setItem('t',root.classList.contains('dark')?'dark':'light')}catch(e){}};
+const mob=$('#mobile');$('#burger').onclick=()=>mob.classList.toggle('hidden');
+mob.querySelectorAll('a').forEach(a=>a.onclick=()=>mob.classList.add('hidden'));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const hdr=$('#hdr'),links=[...document.querySelectorAll('#hdr .nav:not(#mobile) a')],secs=links.map(a=>$(a.getAttribute('href')));
+addEventListener('scroll',()=>{
+ const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+ $('#progress').style.width=(p*100)+'%';$('#top').classList.toggle('show',scrollY>400);
+ ['bg-white/90','dark:bg-slate-900/90','backdrop-blur','shadow'].forEach(c=>hdr.classList.toggle(c,scrollY>30));
+ let cur=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});
+ links.forEach((a,i)=>a.classList.toggle('act',i===cur));
+},{passive:true});
+const words=["Master's student in AI & Applications",'Computer Vision enthusiast','Python developer','LaTeX scientific writer'];
+let w=0,c=0,del=false;const el=$('#typed');
+(function type(){const t=words[w];el.textContent=t.slice(0,del?--c:++c);let d=del?35:70;
+ if(!del&&c===t.length){d=1800;del=true}else if(del&&c===0){del=false;w=(w+1)%words.length;d=400}setTimeout(type,d)})();
+$('#form').onsubmit=e=>{e.preventDefault();
+ location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Portfolio contact from '+$('#n').value)}&body=${encodeURIComponent($('#m').value+'\n\n'+$('#n').value+' ('+$('#e').value+')')}`};
+const cv=$('#net'),cx=cv.getContext('2d');let pts=[],W,H;
+function size(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;
+ pts=Array.from({length:Math.min(70,Math.floor(W/18))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5}))}
+addEventListener('resize',size);size();
+const ms={x:-999,y:-999};cv.parentElement.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();ms.x=e.clientX-r.left;ms.y=e.clientY-r.top});
+(function draw(){cx.clearRect(0,0,W,H);const col=root.classList.contains('dark')?'148,163,255':'59,130,246';
+ pts.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+  cx.beginPath();cx.arc(p.x,p.y,2.2,0,6.283);cx.fillStyle=`rgba(${col},.8)`;cx.fill();
+  for(let j=i+1;j<pts.length;j++){const q=pts[j],d=Math.hypot(p.x-q.x,p.y-q.y);
+   if(d<130){cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(q.x,q.y);cx.strokeStyle=`rgba(${col},${.35*(1-d/130)})`;cx.stroke()}}
+  const dm=Math.hypot(p.x-ms.x,p.y-ms.y);
+  if(dm<160){cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(ms.x,ms.y);cx.strokeStyle=`rgba(139,92,246,${.5*(1-dm/160)})`;cx.stroke()}});
+ requestAnimationFrame(draw)})();
+
+
+ document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Renseigner la date/heure actuelle pour le champ {{time}}
+    document.getElementById('time-input').value = new Date().toLocaleString();
+
+    // Envoi via EmailJS
+    emailjs.sendForm('service_6zm5xjv', '74fc9yl', this)
+        .then(function() {
+            alert('Message envoyé avec succès !');
+        }, function(error) {
+            alert('Échec de l\'envoi... ' + JSON.stringify(error));
         });
-      });
-    });
-
-    // ===== PROJECT MODAL =====
-    const projectData = {
-      'Countdown Timer': { desc: 'Application web de compte à rebours avec notifications, persistance des données et interface responsive.', tech: ['React', 'JavaScript', 'LocalStorage', 'CSS3'] },
-      'Quiz App': { desc: 'Quiz interactif avec questions dynamiques via API, système de scoring et historique des parties.', tech: ['React', 'TypeScript', 'REST API', 'Tailwind'] },
-      'Drawing Canvas': { desc: 'Application de dessin collaborative en temps réel avec outils de dessin, export PNG et WebSocket.', tech: ['Canvas API', 'Fabric.js', 'WebSocket', 'Node.js'] },
-      'Car Game': { desc: 'Jeu de course arcade avec physique de collision, système de score et contrôles clavier/souris.', tech: ['JavaScript', 'Canvas', 'Game Loop', 'ES6+'] },
-      'Image Classifier': { desc: 'Classification d\'images en temps réel avec TensorFlow.js, support de la webcam et modèles pré-entraînés.', tech: ['TensorFlow.js', 'Python', 'Computer Vision', 'Transfer Learning'] },
-      'Chatbot NLP': { desc: 'Assistant conversationnel intelligent avec compréhension du langage naturel et intégration API externe.', tech: ['Python', 'NLTK', 'FastAPI', 'React'] }
-    };
-    
-    function showProjectModal(projectName) {
-      const modal = document.getElementById('projectModal');
-      const data = projectData[projectName];
-      
-      if (data) {
-        document.getElementById('modalTitle').textContent = projectName;
-        document.getElementById('modalDesc').textContent = data.desc;
-        
-        const techContainer = document.getElementById('modalTech');
-        techContainer.innerHTML = data.tech.map(t => `<span class="skill-tag">${t}</span>`).join('');
-        
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-    
-    function closeModalBtn() {
-      const modal = document.getElementById('projectModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.style.overflow = '';
-    }
-    
-    function closeModal(e) {
-      if (e.target.id === 'projectModal') closeModalBtn();
-    }
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModalBtn();
-    });
-
-    // ===== CONTACT FORM =====
-    const contactForm = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
-    
-    contactForm?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const btn = contactForm.querySelector('button[type="submit"]');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
-      btn.disabled = true;
-      
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      formStatus.textContent = '✅ Message envoyé avec succès ! Je vous répondrai bientôt.';
-      formStatus.className = 'text-center text-sm mt-2 text-green-600 dark:text-green-400';
-      formStatus.classList.remove('hidden');
-      
-      contactForm.reset();
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-      
-      setTimeout(() => formStatus.classList.add('hidden'), 5000);
-    });
-
-    // ===== DOWNLOAD CV =====
-    function downloadCV() {
-      alert('📄 Préparation du CV...\n\nDans une version réelle, cela téléchargerait votre CV en PDF.');
-    }
-
-    // ===== BACK TO TOP =====
-    const backToTop = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-    
-    backToTop?.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // ===== SMOOTH SCROLL =====
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          const headerOffset = 80;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-        }
-      });
-    });
-
-    // ===== HEADER SCROLL EFFECT =====
-    const header = document.querySelector('.header-border');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-        header.style.padding = '0.8rem 0';
-      } else {
-        header.style.boxShadow = 'none';
-        header.style.padding = '1.2rem 0';
-      }
-    });
-
-    // ===== INITIALIZE =====
-    window.addEventListener('load', () => {
-      document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        if (isElementInViewport(el)) el.classList.add('visible');
-      });
-    });
-    
-    function isElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-      return rect.top < window.innerHeight * 0.85;
-    }
-  </script>
+});
+</script>
 </body>
 </html>
