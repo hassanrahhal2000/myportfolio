@@ -57,8 +57,14 @@ body{font-family:'Inter',system-ui,sans-serif}
 .dark .tl>div::before{background:#0f172a}.tl>div:hover::before{transform:scale(1.4);background:#3b82f6}
 .proj dt{font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#2563eb;margin-top:.6rem}
 .proj dd{font-size:.9rem;color:#475569}.dark .proj dd{color:#cbd5e1}
-input,textarea{width:100%;padding:.8rem 1rem;border:2px solid #cbd5e1;border-radius:.75rem;background:transparent;transition:.2s}
-.dark input,.dark textarea{border-color:#475569}input:focus,textarea:focus{border-color:#2563eb}
+.field{display:block;width:100%;padding:.85rem 1.1rem;font-size:1rem;line-height:1.5;border:2px solid #cbd5e1;border-radius:.75rem;background:#fff;color:#0f172a;transition:.2s}
+.field::placeholder{color:#94a3b8}
+.field:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.dark .field{background:#0f172a;border-color:#475569;color:#f1f5f9}
+.dark .field:focus{border-color:#60a5fa;box-shadow:0 0 0 4px rgba(96,165,250,.25)}
+textarea.field{min-height:9rem;resize:vertical}
+.lbl{display:block;font-size:.85rem;font-weight:700;margin-bottom:.4rem}
+.form-card:hover{transform:none;box-shadow:0 10px 30px -18px rgba(59,130,246,.4)}
 #top{position:fixed;right:1.5rem;bottom:1.5rem;width:3.2rem;height:3.2rem;border-radius:50%;background:#1d4ed8;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s;z-index:60;box-shadow:0 10px 24px -8px #1d4ed8}
 #top.show{opacity:1;visibility:visible}#top:hover{background:#6d28d9;transform:translateY(-4px)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
@@ -117,7 +123,7 @@ input,textarea{width:100%;padding:.8rem 1rem;border:2px solid #cbd5e1;border-rad
    <p class="mt-4 max-w-xl text-slate-600 dark:text-slate-300 leading-relaxed text-lg">I turn ideas into reliable software and AI solutions. Master's student at the Faculty of Multidisciplinary Studies of Ouarzazate, Ibn Zohr University.</p>
    <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
     <a href="#contact" class="btn btn-p">Let's collaborate <svg class="ic"><use href="#i-arrow"/></svg></a>
-    <a href="cv-hassan-rahhal.pdf" download class="btn btn-o"><svg class="ic"><use href="#i-dl"/></svg> Download CV</a>
+    <a href="CV_Hassan_Rahhal_final.pdf" download="CV_Hassan_Rahhal.pdf" class="btn btn-o"><svg class="ic"><use href="#i-dl"/></svg> Download CV</a>
    </div>
   </div>
   <div class="flex-1 flex justify-center reveal">
@@ -206,13 +212,16 @@ input,textarea{width:100%;padding:.8rem 1rem;border:2px solid #cbd5e1;border-rad
    <div class="card reveal space-y-5">
     <div class="flex items-center gap-3"><span class="badge !mb-0 !w-11 !h-11 !text-lg"><svg class="ic"><use href="#i-mail"/></svg></span><a href="mailto:hassanrahhal194@gmail.com" class="font-semibold hover:text-blue-600">hassanrahhal194@gmail.com</a></div>
     <div class="flex items-center gap-3"><span class="badge !mb-0 !w-11 !h-11 !text-lg"><svg class="ic"><use href="#i-pin"/></svg></span><span class="font-semibold">Ouarzazate, Morocco</span></div>
-    <div class="flex flex-wrap gap-3 pt-2"><a href="https://github.com/hassanrahhal2000" target="_blank" rel="noopener noreferrer" class="btn btn-o btn-s"><i class="fab fa-github"></i> GitHub</a><a href="#" class="btn btn-o btn-s"><i class="fab fa-linkedin-in"></i> LinkedIn</a></div>
+    <div class="flex flex-wrap gap-3 pt-2"><a href="CV_Hassan_Rahhal_final.pdf" download="CV_Hassan_Rahhal.pdf" class="btn btn-p btn-s"><svg class="ic"><use href="#i-dl"/></svg> Download CV</a><a href="https://github.com/hassanrahhal2000" target="_blank" rel="noopener noreferrer" class="btn btn-o btn-s"><i class="fab fa-github"></i> GitHub</a><a href="#" class="btn btn-o btn-s"><i class="fab fa-linkedin-in"></i> LinkedIn</a></div>
    </div>
-   <form id="contact-form" class="card reveal space-y-3">
-    <label class="block text-sm font-semibold" for="t">Subject</label><input id="t" type="text" name="title" required placeholder="What is it about?">
-    <label class="block text-sm font-semibold" for="n">Name</label><input id="n" type="text" name="name" required placeholder="Your name">
-    <label class="block text-sm font-semibold" for="e">Email</label><input id="e" type="email" name="email" required placeholder="you@email.com">
-    <label class="block text-sm font-semibold" for="m">Message</label><textarea id="m" name="message" rows="4" required placeholder="How can I help?"></textarea>
+   <form id="contact-form" class="card form-card reveal space-y-5">
+    <div><h3 class="text-xl font-bold">Send me a message</h3><p class="text-sm text-slate-500 dark:text-slate-400">All fields are required.</p></div>
+    <div class="grid sm:grid-cols-2 gap-4">
+     <div><label class="lbl" for="n">Name</label><input id="n" class="field" type="text" name="name" required autocomplete="name" placeholder="Your name"></div>
+     <div><label class="lbl" for="e">Email</label><input id="e" class="field" type="email" name="email" required autocomplete="email" placeholder="you@email.com"></div>
+    </div>
+    <div><label class="lbl" for="t">Subject</label><input id="t" class="field" type="text" name="title" required placeholder="What is it about?"></div>
+    <div><label class="lbl" for="m">Message</label><textarea id="m" class="field" name="message" rows="5" required placeholder="How can I help?"></textarea></div>
     <input type="hidden" name="time" id="time-input">
     <button id="sendBtn" class="btn btn-p w-full" type="submit"><span>Send message</span> <svg class="ic"><use href="#i-arrow"/></svg></button>
     <p id="formStatus" class="text-sm font-semibold text-center hidden" role="status"></p>
@@ -261,19 +270,39 @@ const ms={x:-999,y:-999};cv.parentElement.addEventListener('mousemove',e=>{const
 
 // ===== EmailJS =====
 const EJS={service:'service_6zm5xjv',template:'template_omhw3x9',key:'wUCq6h4JTEM0ldJTS'};
+const TO='hassanrahhal194@gmail.com';
 if(window.emailjs)emailjs.init(EJS.key);
+function hint(err){
+ const t=String((err&&(err.text||err.message))||'').toLowerCase(),c=err&&err.status;
+ if(!navigator.onLine)return 'No internet connection.';
+ if(t.includes('recipient'))return 'Set the "To Email" field in your EmailJS template.';
+ if(t.includes('template id'))return 'Template ID not found. Check EmailJS > Email Templates.';
+ if(t.includes('service id'))return 'Service ID not found. Check EmailJS > Email Services.';
+ if(t.includes('public key')||t.includes('user_id'))return 'Public key invalid. Check EmailJS > Account > API keys.';
+ if(t.includes('gmail')||t.includes('authentication')||t.includes('scope'))return 'Reconnect your Gmail service in EmailJS > Email Services.';
+ if(c===403||t.includes('origin')||t.includes('domain'))return 'This website domain is not allowed. Check EmailJS > Account > Security.';
+ if(c===429||t.includes('limit')||t.includes('quota'))return 'EmailJS monthly limit reached.';
+ return '';
+}
 $('#contact-form').addEventListener('submit',e=>{
  e.preventDefault();
- const f=e.target,btn=$('#sendBtn'),st=$('#formStatus');
+ const f=e.target,btn=$('#sendBtn'),st=$('#formStatus'),lab=btn.querySelector('span');
  const show=(msg,ok)=>{st.textContent=msg;st.className='text-sm font-semibold text-center '+(ok?'text-green-600':'text-red-600')};
- if(!window.emailjs){show('Email service could not load. Check your internet connection.',false);return}
+ const fallback=()=>{
+  const d=new FormData(f),a=document.createElement('a');
+  a.href='mailto:'+TO+'?subject='+encodeURIComponent(d.get('title')||'Portfolio contact')+'&body='+encodeURIComponent((d.get('message')||'')+'\n\n'+(d.get('name')||'')+' ('+(d.get('email')||'')+')');
+  a.textContent='Send with your email app instead';a.className='btn btn-o btn-s mt-3';
+  st.appendChild(document.createElement('br'));st.appendChild(a);
+ };
+ if(!window.emailjs){show('Email service could not load.',false);fallback();return}
  $('#time-input').value=new Date().toLocaleString();
- btn.disabled=true;btn.querySelector('span').textContent='Sending…';
- emailjs.sendForm(EJS.service,EJS.template,f).then(()=>{
+ btn.disabled=true;lab.textContent='Sending…';
+ emailjs.sendForm(EJS.service,EJS.template,f,EJS.key).then(()=>{
   show('Message sent successfully! I will reply soon.',true);f.reset();
  }).catch(err=>{
-  show('Sending failed: '+((err&&(err.text||err.message))||'unknown error'),false);console.error(err);
- }).finally(()=>{btn.disabled=false;btn.querySelector('span').textContent='Send message'});
+  console.error(err);
+  show('Sending failed: '+((err&&(err.text||err.message))||'unknown error')+' '+hint(err),false);fallback();
+ }).finally(()=>{btn.disabled=false;lab.textContent='Send message'});
 });
 </script>
 </body>
